@@ -1,4 +1,4 @@
-# Joypad Enhanced 0.2.0 — Minecraft 1.7.10
+# Joypad Enhanced 0.2.1 — Minecraft 1.7.10
 
 Improved JoypadMod with native **Apple GameController support on macOS 11.3+**, and fixes for XInput controllers on Windows. The macOS JNI library includes Apple Silicon and Intel architectures.
 
@@ -14,6 +14,14 @@ Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the pre
 
 ## Changes
 
+### 0.2.1: capture the mouse during controller gameplay
+
+The OS cursor is now hidden and captured automatically while a world is active, the game window is focused and controller input is enabled. Inventories, menus and focus loss release the cursor; returning to gameplay captures it again. Mouse movement deltas from the transition are discarded to avoid a camera jump.
+
+The new **Capture mouse** setting defaults to on, including when upgrading a profile whose old `GrabMouse` setting was false. It can be turned off under **Controls → Advanced** for split-screen use. Vanilla mouse release is always honored. The capture state is reconciled each render frame because the old controller handler could set `inGameHasFocus` without grabbing the actual cursor.
+
+### Controller support inherited from 0.2.0
+
 - Native macOS Bluetooth/USB controller support through Apple's GameController framework and a bundled JNI bridge.
 - Standard mapping for face buttons, bumpers, stick clicks, D-pad, stick axes and independent LT/RT triggers.
 - XInput button polling works for player zero without relying on listener registration order.
@@ -26,11 +34,12 @@ Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the pre
 ## Validation
 
 - Built using JDK 8 against Minecraft 1.7.10 / Forge 10.13.4.1614.
-- 101 simulated input regression assertions passed.
-- 2262 patched SRG member references checked against both Forge 1614 and Forge 1558.
+- 101 simulated input regression assertions and 19 headless cursor-transition assertions passed.
+- 2668 patched SRG member references checked against both Forge 1614 and Forge 1558.
 - Actual Xbox Wireless Controller detected over Bluetooth on macOS with Apple Silicon, including through the final JAR on Prism's ARM64 Java 8 runtime.
 - Tekxit with Forge 10.13.4.1558 started successfully with 130 mods and detected/selected the controller.
-- Manual in-game diagnostics confirmed that all buttons, both sticks, and LT/RT responded.
+- Controller diagnostics in 0.2.0 confirmed that all buttons, both sticks, and LT/RT responded. The native controller backend is unchanged in 0.2.1.
+- The new cursor behavior passed headless transition tests; an in-game visual confirmation of cursor capture is still pending.
 
 Extended gameplay compatibility, Intel macOS execution and Windows hardware were not tested in this iteration. Guide/Home may be reserved by the operating system. This is not a complete backport of modern Controlify or Controllable: focus-based console navigation, automatic glyphs, rumble and radial menus are outside this release.
 

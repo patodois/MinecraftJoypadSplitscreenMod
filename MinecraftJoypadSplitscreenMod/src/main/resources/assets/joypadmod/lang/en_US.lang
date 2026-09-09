@@ -83,3 +83,5 @@ improved.connected=Connected
 improved.disconnected=Disconnected
 improved.bindHint=Click a binding, then press a button. Esc cancels.
 improved.testHint=Test inputs freely. Use mouse or Esc to leave.
+
+-Global-.CaptureMouseInGame=Capture mouse

@@ -10,11 +10,14 @@
     "com/shiny/joypadmod/devices/StandardGamepadDevice.java",
     "com/shiny/joypadmod/devices/XInputDeviceWrapper.java",
     "com/shiny/joypadmod/devices/XInputLibrary.java",
+    "com/shiny/joypadmod/helpers/ConfigFile.java",
     "com/shiny/joypadmod/inputevent/ControllerInputEvent.java",
     "com/shiny/joypadmod/inputevent/ControllerUtils.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadAdvancedMenu.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadConfigMenu.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadControlList.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadFlatButton.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadMouseHelper.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadSensitivitySlider.java"
   ],
   "resources": [

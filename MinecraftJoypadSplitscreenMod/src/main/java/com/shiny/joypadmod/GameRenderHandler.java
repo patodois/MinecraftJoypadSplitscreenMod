@@ -15,6 +15,7 @@ import com.shiny.joypadmod.inputevent.ControllerBinding.BindingOptions;
 import com.shiny.joypadmod.inputevent.ControllerInputEvent;
 import com.shiny.joypadmod.lwjglVirtualInput.VirtualMouse;
 import com.shiny.joypadmod.minecraftExtensions.JoypadConfigMenu;
+import com.shiny.joypadmod.minecraftExtensions.JoypadMouseHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiControls;
@@ -44,6 +45,7 @@ public class GameRenderHandler
 	{
 		try
 		{
+            JoypadMouseHelper.updateCapture();
 			if (mc.currentScreen != null && !ControllerSettings.isSuspended())
 			{
 				if (mc.currentScreen instanceof GuiControls)

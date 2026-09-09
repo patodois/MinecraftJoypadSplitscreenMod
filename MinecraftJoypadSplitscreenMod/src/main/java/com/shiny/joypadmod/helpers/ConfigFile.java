@@ -51,6 +51,10 @@ public class ConfigFile
 	public void init()
 	{
 		config.load();
+        // A distinct setting upgrades legacy GrabMouse=false profiles without
+        // preventing an explicit opt-out after upgrading.
+        config.get(globalCat, "CaptureMouseInGame", true);
+
 
 		ControllerSettings.loggingLevel = config.get(globalCat, "LoggingLevel", 1).getInt();
 
@@ -88,8 +92,8 @@ public class ConfigFile
 		}
 
 		LogHelper.Info(userName + "'s JoyNo == " + preferedJoyNo + " (" + preferedJoyName + "). SharedProfile = "
-				+ getConfigFileSetting("-Global-.SharedProfile") + ". GrabMouse = "
-				+ getConfigFileSetting("-Global-.GrabMouse") + ".  invertYAxis = " + ControllerSettings.invertYAxis
+				+ getConfigFileSetting("-Global-.SharedProfile") + ". CaptureMouseInGame = "
+				+ getConfigFileSetting("-Global-.CaptureMouseInGame") + ".  invertYAxis = " + ControllerSettings.invertYAxis
 				+ ". ConfigVersion " + lastConfigFileVersion + ". Game Sensitivity multiplier: "
 				+ ControllerSettings.inGameSensitivity + ". Menu Sensitivity multiplier: "
 				+ ControllerSettings.inMenuSensitivity);
@@ -485,7 +489,7 @@ public class ConfigFile
 	{
 		config.addCustomCategoryComment(
 				globalCat,
-				"GrabMouse = will grab mouse when in game (generally not good for splitscreen)\r\n"
+				"CaptureMouseInGame = hide and capture the cursor during focused gameplay; menus release it\r\n"
 						+ "LoggingLevel = 0-4 levels of logging ranging from next to none to very verbose. 1 recommended unless debugging.\r\n"
 						+ "SharedProfile = Will share joypad settings across all users except for invert");
 	}

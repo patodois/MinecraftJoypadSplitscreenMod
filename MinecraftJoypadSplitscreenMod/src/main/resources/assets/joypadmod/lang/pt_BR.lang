@@ -65,3 +65,5 @@ key.sneak=Agachar
 key.sprint=Correr
 key.togglePerspective=Mudar perspectiva
 key.use=Usar / colocar bloco
+
+-Global-.CaptureMouseInGame=Capturar mouse

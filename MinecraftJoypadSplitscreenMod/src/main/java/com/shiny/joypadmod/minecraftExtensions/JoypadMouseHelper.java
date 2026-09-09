@@ -2,66 +2,42 @@ package com.shiny.joypadmod.minecraftExtensions;
 
 import com.shiny.joypadmod.ControllerSettings;
 import com.shiny.joypadmod.helpers.LogHelper;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.MouseHelper;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
-// warning: small but non zero chance of this causing incompatibility with other mods
-public class JoypadMouseHelper extends MouseHelper
-{
-	/**
-	 * Grabs the mouse cursor it doesn't move and isn't seen.
-	 */
-	@Override
-	public void grabMouseCursor()
-	{
-		if (ControllerSettings.isInputEnabled() && !ControllerSettings.grabMouse)
-		{
-			// VirtualMouse.setGrabbed(true);
-			return;
-		}
+public class JoypadMouseHelper extends MouseHelper {
+    @Override public void grabMouseCursor() {
+        if (ControllerSettings.isInputEnabled()
+                && (!ControllerSettings.grabMouse || !Display.isActive())) return;
+        super.grabMouseCursor();
+    }
 
-		super.grabMouseCursor();
-	}
+    @Override public void ungrabMouseCursor() {
+        // Always honor Minecraft's release on menus or focus loss, even after
+        // changing the controller preference while the mouse was grabbed.
+        super.ungrabMouseCursor();
+    }
 
-	/**
-	 * Ungrabs the mouse cursor so it can be moved and set it to the center of the screen
-	 */
-	@Override
-	public void ungrabMouseCursor()
-	{
-		if (ControllerSettings.isInputEnabled() && !ControllerSettings.grabMouse)
-		{
-			// VirtualMouse.setGrabbed(false);
-			return;
-		}
-
-		super.ungrabMouseCursor();
-	}
-
-	/*
-	 * @Override public void mouseXYChange() { this.deltaX = Mouse.getDX(); this.deltaY = Mouse.getDY(); if (this.deltaX != 0 || this.deltaY != 0) { LogHelper.Info("MouseHelper dx:" + deltaX + " dy:"
-	 * + deltaY); } }
-	 */
-
-	@Override
-	protected void finalize() throws Throwable
-	{
-		try
-		{
-			LogHelper.Warn("JoypadMouseHelper being garbage collected. "
-					+ "If Minecraft not shutting down, this means another mod may have replaced it.");
-		}
-		catch (Throwable t)
-		{
-			throw t;
-		}
-		finally
-		{
-			super.finalize();
-		}
-	}
-
-	// side note, I had early visions of simply Overriding the mouseXYChange() method and this mod would be
-	// half done, but alas not all Minecraft uses this method.
-
+    /** Controller input can set inGameHasFocus without calling vanilla's grab.
+     * Reconcile the real LWJGL state, including when returning from a GUI. */
+    public static void updateCapture() {
+        if (!Mouse.isCreated() || !ControllerSettings.isInputEnabled()) return;
+        Minecraft mc = Minecraft.getMinecraft();
+        if (mc == null) return;
+        boolean capture = ControllerSettings.grabMouse && !ControllerSettings.modDisabled
+                && mc.theWorld != null && mc.thePlayer != null && mc.currentScreen == null
+                && Display.isActive() && !ControllerSettings.isSuspended();
+        if (Mouse.isGrabbed() == capture) return;
+        Mouse.setGrabbed(capture);
+        // Drop warp/relative deltas at the boundary to avoid a camera jump.
+        Mouse.getDX();
+        Mouse.getDY();
+        if (mc.mouseHelper != null) {
+            mc.mouseHelper.deltaX = 0;
+            mc.mouseHelper.deltaY = 0;
+        }
+        LogHelper.Info(capture ? "Gameplay cursor captured" : "Gameplay cursor released");
+    }
 }

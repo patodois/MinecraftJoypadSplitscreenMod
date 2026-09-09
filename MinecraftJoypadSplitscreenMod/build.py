@@ -113,6 +113,15 @@ def main():
     (B / 'tests').mkdir(exist_ok=True)
     run(javac, '-encoding', 'UTF-8', '-cp', str(classes) + os.pathsep + cp, '-d', B / 'tests', ROOT / 'tests/InputRegressionTest.java')
     run(java, '-Xverify:all', '-cp', str(B / 'tests') + os.pathsep + str(classes) + os.pathsep + cp, 'com.shiny.joypadmod.devices.InputRegressionTest')
+    cursor_tests = B / 'cursor-tests'
+    if cursor_tests.exists():
+        shutil.rmtree(cursor_tests)
+    cursor_tests.mkdir()
+    run(javac, '-encoding', 'UTF-8', '-d', cursor_tests,
+        *sorted((ROOT / 'tests/cursor-fixtures').rglob('*.java')),
+        ROOT / 'src/main/java/com/shiny/joypadmod/minecraftExtensions/JoypadMouseHelper.java',
+        ROOT / 'tests/CursorCaptureTest.java')
+    run(java, '-Xverify:all', '-cp', cursor_tests, 'CursorCaptureTest')
     # Include the hierarchy while remapping so inherited GuiScreen/GuiButton methods
     # and field references also receive the correct runtime SRG names.
     merge(B / 'patched-mcp.jar', [classes, P / 'compile-mcp.jar'])
@@ -135,7 +144,7 @@ def main():
         entries[name] = (resources / name).read_bytes()
     dist = ROOT / 'dist'
     dist.mkdir(exist_ok=True)
-    output = dist / 'JoypadMod-1.7.10-Enhanced-0.2.0.jar'
+    output = dist / 'JoypadMod-1.7.10-Enhanced-0.2.1.jar'
     with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted(entries.items()):
             info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))

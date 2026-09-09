@@ -93,7 +93,7 @@ public class ControllerSettings
 	private static boolean suspendControllerInput = false;
 
 	public static boolean invertYAxis = false;
-	public static boolean grabMouse = false;
+	public static boolean grabMouse = true;
 
 	public static ConfigFile config = null;
 
@@ -115,7 +115,7 @@ public class ControllerSettings
 		singleDirectionAxis = new HashMap<Integer, List<Integer>>();
 		joyBindingsMap = new HashMap<String, ControllerBinding>();
 		userDefinedBindings = new ArrayList<ControllerBinding>();
-		grabMouse = ControllerSettings.getGameOption("-Global-.GrabMouse").equals("true");
+		grabMouse = ControllerSettings.getGameOption("-Global-.CaptureMouseInGame").equals("true");
 
         String osName = System.getProperty("os.name", "");
         if (osName.startsWith("Mac")) {
@@ -1065,7 +1065,7 @@ public class ControllerSettings
 		{
 			saveCurrentJoyBindings();
 		}
-		else if (optionKey.contains("GrabMouse"))
+		else if (optionKey.contains("CaptureMouseInGame"))
 		{
 			grabMouse = Boolean.parseBoolean(value);
 		}
