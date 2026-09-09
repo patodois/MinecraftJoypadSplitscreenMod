@@ -1,0 +1,26 @@
+{
+  "sources": [
+    "com/shiny/joypadmod/ControllerSettings.java",
+    "com/shiny/joypadmod/GameRenderHandler.java",
+    "com/shiny/joypadmod/JoypadMod.java",
+    "com/shiny/joypadmod/devices/MacGamepadDevice.java",
+    "com/shiny/joypadmod/devices/MacGamepadLibrary.java",
+    "com/shiny/joypadmod/devices/MacGamepadNative.java",
+    "com/shiny/joypadmod/devices/SnapshotInputLibrary.java",
+    "com/shiny/joypadmod/devices/StandardGamepadDevice.java",
+    "com/shiny/joypadmod/devices/XInputDeviceWrapper.java",
+    "com/shiny/joypadmod/devices/XInputLibrary.java",
+    "com/shiny/joypadmod/inputevent/ControllerInputEvent.java",
+    "com/shiny/joypadmod/inputevent/ControllerUtils.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadConfigMenu.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadControlList.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadFlatButton.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadSensitivitySlider.java"
+  ],
+  "resources": [
+    "assets/joypadmod/lang/en_US.lang",
+    "assets/joypadmod/lang/pt_BR.lang",
+    "mcmod.info",
+    "natives/macos/libjoypadgamecontroller.dylib"
+  ]
+}

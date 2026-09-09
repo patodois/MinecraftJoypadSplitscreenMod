@@ -144,6 +144,7 @@ public class ControllerUtils
 	 */
 	public boolean isDeadlocked(InputDevice controller)
 	{
+		if (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice) return false;
 		Integer numberOfNegativeAxes = 0;
 		if (controller.getAxisCount() < 1)
 		{
@@ -165,7 +166,7 @@ public class ControllerUtils
 		controller.setDeadZone(axisId, 0);
 		float currentValue = Math.abs(getAxisValue(controller, axisId));
 		LogHelper.Info("Axis: " + axisId + " currently has a value of: " + currentValue);
-		float newValue = currentValue + 0.15f;
+		float newValue = Math.min(0.50f, currentValue + 0.05f);
 		controller.setDeadZone(axisId, newValue);
 		LogHelper.Info("Auto set axis " + axisId + " deadzone to " + newValue);
 	}
@@ -183,7 +184,7 @@ public class ControllerUtils
 	public static int findYAxisIndex(int joyId)
 	{
 		InputDevice controller = ControllerSettings.JoypadModInputLibrary.getController(joyId);
-		if (controller.getClass() == XInputDeviceWrapper.class)
+		if (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice)
 			return 1;
 		for (int i = 0; i < controller.getAxisCount(); i++)
 		{
@@ -198,7 +199,7 @@ public class ControllerUtils
 	public static int findXAxisIndex(int joyId)
 	{
 		InputDevice controller = ControllerSettings.JoypadModInputLibrary.getController(joyId);
-		if (controller.getClass() == XInputDeviceWrapper.class)
+		if (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice)
 			return 0;
 		for (int i = 0; i < controller.getAxisCount(); i++)
 		{
@@ -213,6 +214,17 @@ public class ControllerUtils
 	private Map<String, String> buildDefaultMap(InputDevice controller)
 	{
 		Map<String, String> retMap = new HashMap<String, String>();
+        if (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice) {
+            String[] buttons = {"A", "B", "X", "Y", "Back", "Start", "LB", "RB", "LS", "RS", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right", "Guide"};
+            for (int i = 0; i < controller.getButtonCount(); i++) retMap.put(controller.getButtonName(i), buttons[i]);
+            String[] axes = {"LS X", "LS Y", "RS X", "RS Y", "LT", "RT"};
+            for (int i = 0; i < controller.getAxisCount(); i++) {
+                retMap.put(controller.getAxisName(i), axes[i]);
+                retMap.put(controller.getAxisName(i) + " +", axes[i] + (i < 4 ? " +" : ""));
+                retMap.put(controller.getAxisName(i) + " -", axes[i] + (i < 4 ? " -" : ""));
+            }
+            return retMap;
+        }
 		if (controller.getName().toLowerCase().contains("xinput")
 				|| controller.getName().toLowerCase().contains("xusb")
 				|| controller.getName().toLowerCase().contains("xbox"))

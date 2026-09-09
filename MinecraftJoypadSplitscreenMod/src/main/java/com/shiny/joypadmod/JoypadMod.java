@@ -27,9 +27,9 @@ import com.shiny.joypadmod.minecraftExtensions.JoypadMouseHelper;
 public class JoypadMod
 {
 	public static final String MODID = "JoypadSplitscreenMod";
-	public static final String NAME = "Joypad / SplitScreen Mod";
+	public static final String NAME = "Joypad Enhanced (1.7.10)";
 	public static final float MINVERSION = 0.22f;
-	public static final String REVISION = "";
+	public static final String REVISION = "-enhanced.2";
 
 	private static ControllerSettings controllerSettings;
 

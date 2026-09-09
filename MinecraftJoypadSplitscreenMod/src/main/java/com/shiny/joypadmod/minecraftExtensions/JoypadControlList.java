@@ -80,7 +80,7 @@ public class JoypadControlList extends GuiScrollingList
 		this.textInputName = new GuiTextField(this.fontRenderer, 0, 0, 0, 0);
 		this.textInputName.setVisible(false);
 		joyBindKeys = new ArrayList<String>();
-		descriptionStartX = parent.buttonXStart_top;
+		descriptionStartX = parent.buttonXStart_top + 8;
 		if (this.parent.getCurrentControllerId() != -1)
 		{
 			updatejoyBindKeys();
@@ -176,13 +176,7 @@ public class JoypadControlList extends GuiScrollingList
 			if (thisWidth > longestWidthFound)
 				longestWidthFound = thisWidth;
 		}
-		if (longestWidthFound > parent.controllerButtonWidth / 2 - controlButtonCenterOffset - 3)
-		{
-			descriptionStartX = parent.buttonXStart_top - (parent.controllerButtonWidth / 2 - longestWidthFound)
-					- controlButtonCenterOffset - 5;
-			if (descriptionStartX < 0)
-				descriptionStartX = 0;
-		}
+		descriptionStartX = parent.buttonXStart_top + 8;
 
 	}
 
@@ -207,7 +201,7 @@ public class JoypadControlList extends GuiScrollingList
 	@Override
 	protected void drawBackground()
 	{
-		parent.drawBackground(0);
+		net.minecraft.client.gui.Gui.drawRect(0, 0, parent.width, parent.height, 0xEE111827);
 	}
 
 	int wheelDown = 0;
@@ -224,7 +218,7 @@ public class JoypadControlList extends GuiScrollingList
 		{
 			if (lastListSize > 0 && getSize() > lastListSize)
 			{
-				wheelDown = 350;
+				wheelDown = 0;
 				selectedIndex = getSize() - 1;
 			}
 			else
@@ -234,7 +228,11 @@ public class JoypadControlList extends GuiScrollingList
 			lastListSize = getSize();
 		}
 
-		int centerStart = parent.buttonXStart_top + parent.controllerButtonWidth / 2;
+		net.minecraft.client.gui.Gui.drawRect(parent.controlListXStart,
+            Math.max(var3, parent.controlListYStart), parent.controlListXStart + parent.controlListWidth - 7,
+            Math.min(var3 + buttonHeight, parent.controlListYStart + parent.controlListHeight),
+            var1 % 2 == 0 ? 0xFF182437 : 0xFF1C293C);
+        int centerStart = parent.buttonXStart_top + parent.controllerButtonWidth / 2;
 
 		if (joyBindKeys.get(var1).contains("categories."))
 		{
@@ -242,17 +240,17 @@ public class JoypadControlList extends GuiScrollingList
 			String category = parent.sGet(joyBindKeys.get(var1));
 
 			this.fontRenderer.drawString(category, centerStart - this.fontRenderer.getStringWidth(category) / 2,
-					var3 + 5, -1);
+					var3 + 5, 0x6EE7C2);
 			return;
 		}
 
 		String controlDescription = parent.sGet(joyBindKeys.get(var1));
 		boolean duplicate = ControllerSettings.checkIfDuplicateBinding(joyBindKeys.get(var1));
 
-		this.fontRenderer.drawString(controlDescription, descriptionStartX, var3 + buttonHeight / 2
+		this.fontRenderer.drawString(this.fontRenderer.trimStringToWidth(controlDescription, parent.controllerButtonWidth - 152), descriptionStartX, var3 + buttonHeight / 2
 				- this.fontRenderer.FONT_HEIGHT / 2, duplicate ? 0xFF5555 : -1);
 
-		drawControlButtons(var1, centerStart - controlButtonCenterOffset, var3, joyBindKeys.get(var1),
+		drawControlButtons(var1, parent.buttonXStart_top + parent.controllerButtonWidth - 135, var3, joyBindKeys.get(var1),
 				var1 == selectedIndex);
 
 		if (bindingIndexToUpdate != -1)
@@ -265,7 +263,7 @@ public class JoypadControlList extends GuiScrollingList
 		}
 	}
 
-	private int controlButtonWidth = 70;
+	private int controlButtonWidth = 90;
 	private int smallButtonWidth = 15;
 
 	private void drawControlButtons(int id, int x, int y, String bindingKey, boolean slotSelected)
@@ -347,13 +345,16 @@ public class JoypadControlList extends GuiScrollingList
 			{
 				if (!this.textInputName.getVisible())
 				{
-					textInputName.width = controlButtonWidth;
-					textInputName.height = buttonHeight;
+					textInputName = new GuiTextField(this.fontRenderer, x, y, controlButtonWidth, buttonHeight);
 					textInputName.setText(controlButtonStr);
 					this.textInputName.setVisible(true);
 				}
-				textInputName.xPosition = x;
-				textInputName.yPosition = y;
+				String editText = textInputName.getText();
+                int cursor = textInputName.getCursorPosition();
+                textInputName = new GuiTextField(this.fontRenderer, x, y, controlButtonWidth, buttonHeight);
+                textInputName.setText(editText);
+                textInputName.setCursorPosition(cursor);
+                textInputName.setVisible(true);
 		        textInputName.drawTextBox();
 		        this.textInputName.setFocused(true);
 			}
@@ -363,7 +364,7 @@ public class JoypadControlList extends GuiScrollingList
 		{
 			controlButtonStr = this.fontRenderer.trimStringToWidth(controlButtonStr, controlButtonWidth - 2);
 	
-			GuiButton b = new GuiButton(10001, x, y, controlButtonWidth, buttonHeight, controlButtonStr);
+			GuiButton b = new JoypadFlatButton(10001, x, y, controlButtonWidth, buttonHeight, controlButtonStr);
 			b.drawButton(mc, k, i1);
 	
 			if (binding == null)
@@ -386,7 +387,7 @@ public class JoypadControlList extends GuiScrollingList
 			if (enable)
 			{
 				// draw the remove/unbind option for this binding
-				b = new GuiButton(10002, x + controlButtonWidth, y, smallButtonWidth, buttonHeight, "" + optionRemove);
+				b = new JoypadFlatButton(10002, x + controlButtonWidth, y, smallButtonWidth, buttonHeight, "" + optionRemove);
 				b.drawButton(mc, k, i1);
 	
 				// draw the toggle option button
@@ -396,7 +397,7 @@ public class JoypadControlList extends GuiScrollingList
 					char toggle = McObfuscationHelper.symGet(McObfuscationHelper.JSyms.eCircle);
 					if (binding.bindingOptions.contains(BindingOptions.IS_TOGGLE))
 						toggle = McObfuscationHelper.symGet(McObfuscationHelper.JSyms.fCircle);
-					b = new GuiButton(10003, x + controlButtonWidth + smallButtonWidth, y, smallButtonWidth, buttonHeight,
+					b = new JoypadFlatButton(10003, x + controlButtonWidth + smallButtonWidth, y, smallButtonWidth, buttonHeight,
 							"" + toggle);
 					b.drawButton(mc, k, i1);
 				}
@@ -421,7 +422,7 @@ public class JoypadControlList extends GuiScrollingList
 	private boolean checkButtonPressAction(int id, int x, int y, String bindingKey)
 	{
 		boolean checkCancelInputWait = lastYClick > 0;
-		if (lastYClick >= y && lastYClick <= y + buttonHeight && lastXClick >= x)
+		if (y >= parent.controlListYStart && y + buttonHeight <= parent.controlListYStart + parent.controlListHeight && lastYClick >= y && lastYClick <= y + buttonHeight && lastXClick >= x)
 		{
 			lastYClick = 0;
 			// remove any stale keycodes

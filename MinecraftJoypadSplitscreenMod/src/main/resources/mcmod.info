@@ -1,13 +1,16 @@
 [
-{
-  "modid": "joypadsplitscreenmod",
-  "name": "Joypad / SplitScreen Mod",
-  "version": "1.7.10-10.13.4.1558-1.7.10",
-  "description": "Play Minecraft splitscreen using gamepad controllers!!",
-  "url": "http://retro-hack.blogspot.com/p/minecraft-joypad-mod.html",
-  "updateUrl": "github.com/ljsimin/MinecraftJoypadSplitscreenMod",  
-  "credits": "Forge, FML, MCP & everyone at Mojang, Freeshiny, Eastsider, BryanBlake, Nautigsam",
-  "logoFile": "",
-  "authors": ["Freeshiny", "Eastsider"]
-}
+  {
+    "modid": "JoypadSplitscreenMod",
+    "name": "Joypad Enhanced (1.7.10)",
+    "version": "1.7.10-0.22-enhanced.2",
+    "description": "Personal improved JoypadMod build: Native macOS Bluetooth support, XInput input fixes, controller diagnostics and refreshed settings. Experimental; Minecraft 1.7.10 / Forge 10.13.4.1614.",
+    "url": "http://retro-hack.blogspot.com/p/minecraft-joypad-mod.html",
+    "updateUrl": "github.com/ljsimin/MinecraftJoypadSplitscreenMod",
+    "credits": "Forge, FML, MCP & everyone at Mojang, Freeshiny, Eastsider, BryanBlake, Nautigsam",
+    "logoFile": "",
+    "authors": [
+      "Freeshiny",
+      "Eastsider"
+    ]
+  }
 ]

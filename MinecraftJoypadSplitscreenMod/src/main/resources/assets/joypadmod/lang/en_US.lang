@@ -1,8 +1,8 @@
 calibrationMenu.auto=Auto
 calibrationMenu.deadzone=Deadzone
 calibrationMenu.instructionsTitle=Instructions
-calibrationMenu.instructions1=Press and wiggle all joystick controls
-calibrationMenu.instructions2=Press auto to find deadzone
+calibrationMenu.instructions1=Release sticks and triggers before pressing Auto
+calibrationMenu.instructions2=Move each axis to test its reading
 calibrationMenu.save=Save
 
 controlMenu.addKey=Add Key
@@ -74,3 +74,12 @@ key.sneak=Sneak
 key.sprint=Sprint
 key.togglePerspective=Toggle Perspective
 key.use=Use Item/Place Block
+
+improved.bindings=Bindings
+improved.test=Test controller
+improved.keyboard=Keyboard
+improved.confirm=Confirm?
+improved.connected=Connected
+improved.disconnected=Disconnected
+improved.bindHint=Click a binding, then press a button. Esc cancels.
+improved.testHint=Test inputs freely. Use mouse or Esc to leave.

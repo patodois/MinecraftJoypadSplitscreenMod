@@ -58,6 +58,12 @@ public abstract class ControllerInputEvent
 		return type;
 	}
 
+	public void resetState() {
+		isActive = false;
+		wasReleased = false;
+		pressedOnce = false;
+	}
+
 	public boolean isActive()
 	{
 		return isActive;
@@ -90,7 +96,7 @@ public abstract class ControllerInputEvent
 		if (!isValid())
 			return false;
 
-		boolean bRet = wasPressedRaw() && meetsThreshold();
+		boolean bRet = wasPressedRaw() && !isActive && meetsThreshold();
 
 		if (bRet)
 		{

@@ -21,6 +21,7 @@ import com.shiny.joypadmod.devices.InputDevice;
 import com.shiny.joypadmod.devices.InputLibrary;
 import com.shiny.joypadmod.devices.LWJGLibrary;
 import com.shiny.joypadmod.devices.XInputLibrary;
+import com.shiny.joypadmod.devices.XInputDeviceWrapper;
 import com.shiny.joypadmod.helpers.ConfigFile;
 import com.shiny.joypadmod.helpers.ConfigFile.UserJoypadSettings;
 import com.shiny.joypadmod.helpers.LogHelper;
@@ -33,6 +34,7 @@ import com.shiny.joypadmod.inputevent.ControllerBinding;
 import com.shiny.joypadmod.inputevent.ControllerBinding.BindingOptions;
 import com.shiny.joypadmod.inputevent.ControllerUtils;
 import com.shiny.joypadmod.lwjglVirtualInput.VirtualMouse;
+import com.shiny.joypadmod.lwjglVirtualInput.VirtualKeyboard;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
@@ -97,7 +99,15 @@ public class ControllerSettings
 
 	public ControllerSettings(File configFile)
 	{
-		config = new ConfigFile(configFile);
+		// Keep the first pre-upgrade configuration for rollback.
+        if (configFile.isFile()) {
+            java.nio.file.Path backup = new File(configFile.getPath() + ".before-enhanced.bak").toPath();
+            if (!java.nio.file.Files.exists(backup)) {
+                try { java.nio.file.Files.copy(configFile.toPath(), backup); }
+                catch (java.io.IOException ex) { LogHelper.Warn("Could not back up Joypad settings: " + ex.getMessage()); }
+            }
+        }
+        config = new ConfigFile(configFile);
 		config.init();
 		controllerUtils = new ControllerUtils();
 		validControllers = new HashMap<String, List<Integer>>();
@@ -107,28 +117,28 @@ public class ControllerSettings
 		userDefinedBindings = new ArrayList<ControllerBinding>();
 		grabMouse = ControllerSettings.getGameOption("-Global-.GrabMouse").equals("true");
 
-		if (!useLegacyInput)
-		{
-			// try XInput only first
-			try
-			{
-				JoypadModInputLibrary = new XInputLibrary();
-				JoypadModInputLibrary.create();
-				LogHelper.Info("Using XInput library for Joypad Mod controls");
-			}
-			catch (UnsatisfiedLinkError e)
-			{
-				LogHelper.Error("XInput: Controller object linking error. " + e.toString());
-			}
-			catch (Exception ex)
-			{
-				LogHelper.Error("XInput: Failed creating controller object. " + ex.toString());
-			}
-		}
-		else
-		{
-			LogHelper.Info("XInput: LegacyInput is set to true.");
-		}
+        String osName = System.getProperty("os.name", "");
+        if (osName.startsWith("Mac")) {
+            try {
+                JoypadModInputLibrary = new com.shiny.joypadmod.devices.MacGamepadLibrary();
+                JoypadModInputLibrary.create();
+                LogHelper.Info("Using native macOS GameController for Joypad Mod controls");
+            } catch (LinkageError ex) {
+                LogHelper.Error("macOS gamepad library could not load: " + ex);
+            } catch (Exception ex) {
+                LogHelper.Error("macOS gamepad initialization failed: " + ex);
+            }
+        } else if (!useLegacyInput && osName.startsWith("Windows")) {
+            try {
+                JoypadModInputLibrary = new XInputLibrary();
+                JoypadModInputLibrary.create();
+                LogHelper.Info("Using XInput library for Joypad Mod controls");
+            } catch (LinkageError ex) {
+                LogHelper.Error("XInput library could not load: " + ex);
+            } catch (Exception ex) {
+                LogHelper.Error("XInput initialization failed: " + ex);
+            }
+        }
 
 		if (JoypadModInputLibrary == null || !JoypadModInputLibrary.isCreated())
 		{
@@ -202,7 +212,7 @@ public class ControllerSettings
 								BindingOptions.CATEGORY_MOVEMENT)));
 
 		int axisIndexToUse = xbox6Axis.contains(joyIndex) ? 5 : 4;
-		float thresholdToUse = xbox6Axis.contains(joyIndex) ? defaultAxisThreshhold : defaultAxisThreshhold * -1;
+		float thresholdToUse = (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice || xbox6Axis.contains(joyIndex)) ? defaultAxisThreshhold : defaultAxisThreshhold * -1;
 
 		joyBindingsMap.put("joy.attack",
 				new ControllerBinding("joy.attack", "Attack",
@@ -405,6 +415,7 @@ public class ControllerSettings
 		// into controls to set it up
 		// and it is detected as present
 
+		JoypadModInputLibrary.poll();
 		int nControllers = detectControllers();
 		int selectedController = -1;
 		if (nControllers > 0 && config.preferedJoyNo >= 0)
@@ -515,6 +526,7 @@ public class ControllerSettings
 	 */
 	public static boolean isSingleDirectionAxis(int controllerNo, int axisNo)
 	{
+		if (JoypadModInputLibrary.getController(controllerNo) instanceof com.shiny.joypadmod.devices.StandardGamepadDevice) return false;
 		List<Integer> axis = singleDirectionAxis.get(controllerNo);
 		if (axis != null)
 			return axis.contains(axisNo);
@@ -609,6 +621,11 @@ public class ControllerSettings
 			InputDevice controller = JoypadModInputLibrary.getController(controllerNo);
 			ControllerSettings.setDefaultJoyBindingMap(controllerNo, true);
 			joyNo = controllerNo;
+			ControllerBinding attack = get("joy.attack");
+			if (controller instanceof com.shiny.joypadmod.devices.StandardGamepadDevice && attack != null && attack.inputEvent instanceof AxisInputEvent && attack.inputEvent.getEventIndex() == 5 && attack.inputEvent.getThreshold() < 0) {
+				attack.inputEvent.setThreshold(-attack.inputEvent.getThreshold());
+				config.saveControllerBinding(controller.getName(), attack);
+			}
 			controllerUtils.printDeadZones(controller);
 			inputEnabled = true;
 
@@ -771,7 +788,11 @@ public class ControllerSettings
 	// else return the first index it is found at
 	private int checkForControllerAtIndex(String controllerName, int joyIndex)
 	{
-		if (controllerName != null && validControllers.containsKey(controllerName))
+		if (JoypadModInputLibrary instanceof com.shiny.joypadmod.devices.MacGamepadLibrary && controllerName != null && validControllers.containsKey("macOS - " + controllerName)) {
+            // Select the same physical device, but give the standardized layout its own profile.
+            return validControllers.get("macOS - " + controllerName).get(0);
+        }
+        if (controllerName != null && validControllers.containsKey(controllerName))
 		{
 			List<Integer> ids = validControllers.get(controllerName);
 			if (ids.contains(joyIndex))
@@ -895,6 +916,10 @@ public class ControllerSettings
 	{
 		for (Map.Entry<String, ControllerBinding> entry : joyBindingsMap.entrySet())
 		{
+			if (VirtualKeyboard.isCreated() && entry.getValue().keyCodes != null) {
+                for (int key : entry.getValue().keyCodes) if (key >= 0) VirtualKeyboard.releaseKey(key, true);
+            }
+            entry.getValue().inputEvent.resetState();
 			if (entry.getValue().bindingOptions.contains(BindingOptions.IS_TOGGLE))
 				entry.getValue().toggleState = false;
 		}
@@ -915,7 +940,7 @@ public class ControllerSettings
 
 	public static void saveDeadZones(InputDevice controller)
 	{
-		DecimalFormat df = new DecimalFormat("#0.00");
+		DecimalFormat df = new DecimalFormat("#0.00", java.text.DecimalFormatSymbols.getInstance(java.util.Locale.ROOT));
 
 		for (int i = 0; i < controller.getAxisCount(); i++)
 		{

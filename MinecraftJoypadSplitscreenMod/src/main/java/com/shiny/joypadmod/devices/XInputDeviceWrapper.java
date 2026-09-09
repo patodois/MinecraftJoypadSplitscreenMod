@@ -10,7 +10,7 @@ import com.ivan.xinput.enums.XInputButton;
 import com.ivan.xinput.exceptions.XInputNotLoadedException;
 import com.shiny.joypadmod.helpers.LogHelper;
 
-public class XInputDeviceWrapper extends InputDevice {
+public class XInputDeviceWrapper extends InputDevice implements StandardGamepadDevice {
 
 	public XInputDevice theDevice;
 	public Boolean xInput14 = false;
@@ -30,7 +30,7 @@ public class XInputDeviceWrapper extends InputDevice {
 
 	@Override
 	public int getButtonCount() {
-		return 15;
+		return 15; // UNKNOWN is a sentinel, not a physical button.
 	}
 
 	@Override
@@ -40,6 +40,7 @@ public class XInputDeviceWrapper extends InputDevice {
 
 	@Override
 	public float getAxisValue(int axisIndex) {
+		if (theDevice == null || !theDevice.isConnected() || axisIndex < 0 || axisIndex >= deadZones.length) return 0;
 		float value = theDevice.getComponents().getAxes().get(XInputAxis.values()[axisIndex]); 		
 
 		if (Math.abs(value) > deadZones[axisIndex])
@@ -81,31 +82,32 @@ public class XInputDeviceWrapper extends InputDevice {
 	@Override
 	public Boolean isButtonPressed(int index) {
 		
-		return isPressed(XInputButton.values()[index], theDevice.getComponents().getButtons());
+		return theDevice != null && theDevice.isConnected() && index >= 0 && index < getButtonCount() && isPressed(XInputButton.values()[index], theDevice.getComponents().getButtons());
 	}
 
 	@Override
 	public Float getPovX() {
 		
-		if (theDevice.getDelta().getButtons().isPressed(XInputButton.DPAD_LEFT))
+		if (isButtonPressed(XInputButton.DPAD_LEFT.ordinal()))
 			return -1.0f;
-		if (theDevice.getDelta().getButtons().isPressed(XInputButton.DPAD_RIGHT))
+		if (isButtonPressed(XInputButton.DPAD_RIGHT.ordinal()))
 			return 1.0f;
 		return 0f;
 	}
 
 	@Override
 	public Float getPovY() {
-		if (theDevice.getDelta().getButtons().isPressed(XInputButton.DPAD_UP))
-			return 1.0f;
-		if (theDevice.getDelta().getButtons().isPressed(XInputButton.DPAD_DOWN))
+		if (isButtonPressed(XInputButton.DPAD_UP.ordinal()))
 			return -1.0f;
+		if (isButtonPressed(XInputButton.DPAD_DOWN.ordinal()))
+			return 1.0f;
 		return 0f;
 	}
 
 	@Override
 	public void setDeadZone(int axisIndex, float value) {
-		deadZones[axisIndex] = value;
+		if (axisIndex >= 0 && axisIndex < deadZones.length)
+			deadZones[axisIndex] = Float.isNaN(value) ? 0.15f : Math.max(0f, Math.min(0.95f, value));
 	}
 	
 	protected void setIndex(int index, Boolean useXInput14)
@@ -128,7 +130,7 @@ public class XInputDeviceWrapper extends InputDevice {
 
 	@Override
 	public Boolean isConnected() {
-		return theDevice.isConnected();		
+		return theDevice != null && theDevice.isConnected();
 	}
 	
 	@Override

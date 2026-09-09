@@ -23,3 +23,10 @@ build
 # other
 eclipse
 run
+# Enhanced patch build
+tools
+dist/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
