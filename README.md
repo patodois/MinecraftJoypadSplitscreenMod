@@ -4,10 +4,6 @@ Native **macOS Bluetooth/USB controller support**, **XInput fixes for Windows**,
 
 **[Download 0.3.0](https://github.com/patodois/MinecraftJoypadSplitscreenMod/releases/tag/v0.3.0)** · **[Installation, controls and build instructions](MinecraftJoypadSplitscreenMod/README.md)**
 
-![Pixel controller glyphs and Minecraft-inspired colors](MinecraftJoypadSplitscreenMod/docs/controller-ui-preview.png)
-
-*Design preview using the production artwork and colors, with sample bindings. Not an in-game screenshot.*
-
 ## New in 0.3.0
 
 - Pixel-art button icons in contextual hints, bindings and controller diagnostics.

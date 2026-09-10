@@ -16,10 +16,6 @@ Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the pre
 
 ### 0.3.0: pixel icons, Minecraft colors and console defaults
 
-![Controller icon and color preview](docs/controller-ui-preview.png)
-
-The image is a design preview rendered with the production sprite artwork and colors, not an in-game screenshot.
-
 - Original pixel-art controller glyphs replace plain input names/numbers in the HUD, binding buttons and controller test screen. Hints read the actual current binding, so custom remaps update their icons immediately.
 - Stone-gray beveled buttons, grass-green highlights, warm text and wood-colored accents replace the previous blue theme. Xbox face-button colors remain on the corresponding glyphs.
 - Inventory hints now reference the actual menu bindings. Narrow layouts use one bottom row for inventory hints and keep gameplay hints above the hotbar.
@@ -42,7 +38,6 @@ The image is a design preview rendered with the production sprite artwork and co
 The controller test and binding-capture screens suspend gameplay/menu actions so pressing a button can be inspected or assigned safely. Use the mouse or keyboard Escape to leave those modes. Standardized backends use Xbox-style glyphs; unknown legacy layouts use a neutral button icon.
 
 The reference file's numeric button IDs are translated to the physical controls in this mod's backend; its Java classes and textures are not bundled. `tests/GenerateUiAssets.java` generates the original sprite atlas and design preview from `GlyphArt.java` and `PixelTheme.java` during the build.
-
 
 ### 0.2.1: capture the mouse during controller gameplay
 

@@ -70,7 +70,7 @@ public class GenerateUiAssets {
         g.setFont(new Font(Font.MONOSPACED,Font.PLAIN,9));
         label("Design preview: production sprites and colors, sample bindings. Not an in-game screenshot.",18,308,PixelTheme.MUTED);
         g.dispose();
-        File image=new File(root,"docs/controller-ui-preview.png");image.getParentFile().mkdirs();ImageIO.write(preview,"png",image);
+        File image=new File(root,"build/previews/controller-ui-preview.png");image.getParentFile().mkdirs();ImageIO.write(preview,"png",image);
         System.out.println("PASS: "+Icon.values().length+" bounded pixel glyphs; generated atlas and UI design preview.");
     }
 }
