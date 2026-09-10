@@ -1,6 +1,7 @@
 package com.shiny.joypadmod.minecraftExtensions;
 
 import java.util.ArrayList;
+import com.shiny.joypadmod.gui.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumSet;
@@ -201,7 +202,7 @@ public class JoypadControlList extends GuiScrollingList
 	@Override
 	protected void drawBackground()
 	{
-		net.minecraft.client.gui.Gui.drawRect(0, 0, parent.width, parent.height, 0xEE111827);
+		net.minecraft.client.gui.Gui.drawRect(0, 0, parent.width, parent.height, PixelTheme.PANEL);
 	}
 
 	int wheelDown = 0;
@@ -231,7 +232,7 @@ public class JoypadControlList extends GuiScrollingList
 		net.minecraft.client.gui.Gui.drawRect(parent.controlListXStart,
             Math.max(var3, parent.controlListYStart), parent.controlListXStart + parent.controlListWidth - 7,
             Math.min(var3 + buttonHeight, parent.controlListYStart + parent.controlListHeight),
-            var1 % 2 == 0 ? 0xFF182437 : 0xFF1C293C);
+            var1 % 2 == 0 ? PixelTheme.ROW : PixelTheme.ROW_ALT);
         int centerStart = parent.buttonXStart_top + parent.controllerButtonWidth / 2;
 
 		if (joyBindKeys.get(var1).contains("categories."))
@@ -240,7 +241,7 @@ public class JoypadControlList extends GuiScrollingList
 			String category = parent.sGet(joyBindKeys.get(var1));
 
 			this.fontRenderer.drawString(category, centerStart - this.fontRenderer.getStringWidth(category) / 2,
-					var3 + 5, 0x6EE7C2);
+					var3 + 5, PixelTheme.ACCENT);
 			return;
 		}
 
@@ -364,7 +365,10 @@ public class JoypadControlList extends GuiScrollingList
 		{
 			controlButtonStr = this.fontRenderer.trimStringToWidth(controlButtonStr, controlButtonWidth - 2);
 	
-			GuiButton b = new JoypadFlatButton(10001, x, y, controlButtonWidth, buttonHeight, controlButtonStr);
+			JoypadFlatButton keyButton = new JoypadFlatButton(10001, x, y, controlButtonWidth, buttonHeight, controlButtonStr);
+            if(binding!=null && binding.inputEvent!=null && binding.inputEvent.isValid() && bindingIndexToUpdate!=id)
+                keyButton.withIcon(ControllerGlyphs.resolve(ControllerSettings.JoypadModInputLibrary.getController(parent.getCurrentControllerId()), binding.inputEvent));
+            GuiButton b=keyButton;
 			b.drawButton(mc, k, i1);
 	
 			if (binding == null)

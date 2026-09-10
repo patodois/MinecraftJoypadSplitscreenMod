@@ -1,5 +1,6 @@
 {
   "sources": [
+    "com/shiny/joypadmod/ButtonScreenTips.java",
     "com/shiny/joypadmod/ControllerSettings.java",
     "com/shiny/joypadmod/GameRenderHandler.java",
     "com/shiny/joypadmod/JoypadMod.java",
@@ -10,7 +11,14 @@
     "com/shiny/joypadmod/devices/StandardGamepadDevice.java",
     "com/shiny/joypadmod/devices/XInputDeviceWrapper.java",
     "com/shiny/joypadmod/devices/XInputLibrary.java",
+    "com/shiny/joypadmod/gui/ControllerGlyphs.java",
+    "com/shiny/joypadmod/gui/GlyphArt.java",
+    "com/shiny/joypadmod/gui/JoypadTheme.java",
+    "com/shiny/joypadmod/gui/PixelTheme.java",
     "com/shiny/joypadmod/helpers/ConfigFile.java",
+    "com/shiny/joypadmod/helpers/McObfuscationHelper.java",
+    "com/shiny/joypadmod/helpers/ModVersionHelper.java",
+    "com/shiny/joypadmod/inputevent/ConsolePreset.java",
     "com/shiny/joypadmod/inputevent/ControllerInputEvent.java",
     "com/shiny/joypadmod/inputevent/ControllerUtils.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadAdvancedMenu.java",
@@ -23,6 +31,7 @@
   "resources": [
     "assets/joypadmod/lang/en_US.lang",
     "assets/joypadmod/lang/pt_BR.lang",
+    "assets/joypadmod/textures/gui/controller_glyphs.png",
     "mcmod.info",
     "natives/macos/libjoypadgamecontroller.dylib"
   ]

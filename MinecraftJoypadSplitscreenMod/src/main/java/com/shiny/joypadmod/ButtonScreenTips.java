@@ -1,189 +1,79 @@
 package com.shiny.joypadmod;
 
-import com.shiny.joypadmod.helpers.LogHelper;
+import com.shiny.joypadmod.devices.InputDevice;
+import com.shiny.joypadmod.gui.ControllerGlyphs;
+import com.shiny.joypadmod.gui.PixelTheme;
 import com.shiny.joypadmod.helpers.McObfuscationHelper;
 import com.shiny.joypadmod.helpers.ModVersionHelper;
 import com.shiny.joypadmod.inputevent.ControllerBinding;
-
+import com.shiny.joypadmod.minecraftExtensions.JoypadConfigMenu;
+import com.shiny.joypadmod.minecraftExtensions.JoypadAdvancedMenu;
+import com.shiny.joypadmod.minecraftExtensions.JoypadCalibrationMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 
+/** Contextual hints resolve the actual binding every frame, including custom remaps. */
 public class ButtonScreenTips extends Gui {
-	
-	public static class HintString {
-		
-		public String bindingString;
-		public String hintHolding;
-		public String hintNormal;
-		public Boolean isValid;
-		private String hintOverride;
-		private String hintOverrideHolding;
-		public HintString(String bindString, String menuHintOverride, String menuHintOverrideHolding)
-		{
-			LogHelper.Info(String.format("HintString Constructor called with " +
-					"binding: %s. MenuOverride: %s. menuHintOverrideHolding: %s",
-					bindString, menuHintOverride, menuHintOverrideHolding));
-			bindingString = bindString;
-			hintOverride = menuHintOverride;
-			hintOverrideHolding = menuHintOverrideHolding;
-			UpdateHintString();
-		}
-		
-		public HintString(String a)
-		{
-			this(a,null,null);
-		}
-		
-		public void UpdateHintString()
-		{
-			try
-			{
-				ControllerBinding b = ControllerSettings.get(bindingString);
-				isValid = b!= null && b.inputEvent != null && b.inputEvent.isValid();
-				if (isValid)
-				{
-					hintNormal = b.getInputName() + " - ";
-					if (hintOverride == null)
-						hintNormal += b.getMenuItemName();
-					else
-						hintNormal += McObfuscationHelper.lookupString(hintOverride);
-					if (hintOverrideHolding == null)
-						hintHolding = null;
-					else
-						hintHolding = b.getInputName() + " - " + 
-						McObfuscationHelper.lookupString(hintOverrideHolding);
-				}
-				LogHelper.Info(String.format("HintString: %s, HintStringHolding: %s", 
-						hintNormal, hintHolding));
-			} catch (Exception ex)
-			{
-				isValid = false;
-				LogHelper.Error("Error updating HintString " + bindingString + " " + ex.getLocalizedMessage());
-			}
-		}
-	}
-	
-	public static HintString[] blTipsGame = { new HintString("joy.inventory"), new HintString("joy.jump")};
-	public static HintString[] brTipsGame = { new HintString("joy.attack"), new HintString("joy.use") };
-	public static HintString[] blTipsMenu = { new HintString("joy.closeInventory"), 
-			new HintString("joy.shiftClick","menuHint.quickmove",null) /* quick move */ };
-	public static HintString[] brTipsMenu = { new HintString("joy.guiLeftClick","menuHint.takeall","menuHint.placeall"), 
-			new HintString("joy.interact","menuHint.takehalf","menuHint.placeone") /* take half stack / drop 1 item */};
-	
-	Minecraft mc = Minecraft.getMinecraft();
-	FontRenderer fr = mc.fontRenderer;
-	int currentX = 5;
-	int currentY = 20;
-	
-	public ButtonScreenTips()
-	{
-		if (ControllerSettings.isSuspended() 
-				|| !ControllerSettings.isInputEnabled() 
-				|| !ControllerSettings.displayHints)
-			return;
-        
-		displayTips();
-	}
-	
-	public static void UpdateHintString()
-	{
-		for (HintString hs : blTipsGame)
-			hs.UpdateHintString();
-		for (HintString hs : brTipsGame)
-			hs.UpdateHintString();
-		for (HintString hs : blTipsMenu)
-			hs.UpdateHintString();
-		for (HintString hs : brTipsMenu)
-			hs.UpdateHintString();
-	}
-	
-	private int findMaxStringLength(HintString[] hintStrings, boolean inMenu, boolean isHolding)
-	{
-		int max = 0;
-		for (HintString hs : hintStrings)
-    	{
-    		if (hs.isValid)
-        	{
-    			String checkString;
-    			if (isHolding &&  hs.hintHolding != null)
-    				checkString = hs.hintHolding;
-    			else
-    				checkString = hs.hintNormal;
-        		int len = fr.getStringWidth(checkString);
-        		if (len > max)
-        			max = len;         		
-        	}
-    	}
-		return max;
-	}
-	
-	private void displayTips()
-	{
-		ScaledResolution scaled = ModVersionHelper.GetScaledResolution();
-        int width = scaled.getScaledWidth();
-        int height = scaled.getScaledHeight();
+    private static final String[][] GAME_LEFT={{"joy.inventory",null},{"joy.jump",null}};
+    private static final String[][] GAME_RIGHT={{"joy.attack",null},{"joy.use",null}};
+    private static final String[][] CONTAINER_LEFT={{"joy.closeInventory","improved.back"},{"joy.shiftClick","menuHint.quickmove"}};
+    private static final String[][] CONTAINER_RIGHT={{"joy.guiLeftClick","menuHint.takeall","menuHint.placeall"},{"joy.guiRightClick","menuHint.takehalf","menuHint.placeone"}};
+    private static final String[][] MENU_LEFT={{"joy.guiLeftClick","improved.select"}};
+    private static final String[][] MENU_RIGHT={{"joy.closeInventory","improved.back"}};
 
-        if (mc.currentScreen instanceof GuiContainer)
-        {
-        	boolean isHolding = mc.thePlayer != null &&
-        			mc.thePlayer.inventory != null &&
-        			mc.thePlayer.inventory.getItemStack() != null;
-        	int maxLen = findMaxStringLength(blTipsMenu, true, isHolding);
-        	currentX = width / 2 - 100 - maxLen;
-            currentY = height - ( (fr.FONT_HEIGHT * blTipsMenu.length) + (blTipsMenu.length * 5) );
-            for (HintString hs : blTipsMenu)
-        	{
-        		if (hs.isValid)
-            	{
-        			String outString = isHolding && hs.hintHolding != null ? hs.hintHolding :hs.hintNormal;
-            		drawTip(outString, 0xFFFFFF);
-            	}
-        	}
-            currentX = width / 2 + 100;
-            currentY = height - ( (fr.FONT_HEIGHT * brTipsMenu.length) + (brTipsMenu.length * 5) );
-            for (HintString hs : brTipsMenu)
-        	{
-        		if (hs.isValid)
-            	{
-        			String outString = isHolding && hs.hintHolding != null ? hs.hintHolding :hs.hintNormal;
-            		drawTip(outString, 0xFFFFFF);
-            	}
-        	}
+    // Preserved for callers compiled against the original mod; no stale label cache remains.
+    public static void UpdateHintString() {}
+
+    public ButtonScreenTips() {
+        if(ControllerSettings.isSuspended() || !ControllerSettings.isInputEnabled()
+                || !ControllerSettings.displayHints || ControllerSettings.joyNo<0) return;
+        Minecraft mc=Minecraft.getMinecraft();
+        if(mc.currentScreen instanceof JoypadConfigMenu || mc.currentScreen instanceof JoypadAdvancedMenu
+                || mc.currentScreen instanceof JoypadCalibrationMenu) return;
+        boolean game=mc.currentScreen==null && mc.theWorld!=null && mc.thePlayer!=null;
+        boolean container=mc.currentScreen instanceof GuiContainer;
+        if(!game && mc.currentScreen==null) return;
+        InputDevice device=ControllerSettings.JoypadModInputLibrary.getController(ControllerSettings.joyNo);
+        if(!device.isConnected()) return;
+        ScaledResolution scaled=ModVersionHelper.GetScaledResolution();
+        int width=scaled.getScaledWidth(), height=scaled.getScaledHeight();
+        boolean holding=container && mc.thePlayer!=null && mc.thePlayer.inventory.getItemStack()!=null;
+        if(container && width<600) {
+            String[][] items={CONTAINER_LEFT[0],CONTAINER_LEFT[1],CONTAINER_RIGHT[0],CONTAINER_RIGHT[1]};
+            int cell=(width-16)/4;
+            for(int i=0;i<items.length;i++) drawColumn(mc.fontRendererObj,device,new String[][]{items[i]},holding,
+                8+i*cell,height-21,cell-4);
+            return;
         }
-        else if (mc.inGameHasFocus)
-        {
-        	boolean isHolding = false;
-        	int maxLen = findMaxStringLength(blTipsGame, false, isHolding);
-        	currentX = width / 2 - 95 - maxLen;        	
-            currentY = height - ( (fr.FONT_HEIGHT * blTipsGame.length) + (blTipsGame.length * 5) );
-            for (HintString hs : blTipsGame)
-        	{
-        		if (hs.isValid)
-            	{
-        			String outString = isHolding && hs.hintHolding != null ? hs.hintHolding :hs.hintNormal;
-            		drawTip(outString, 0xFFFFFF);
-            	}
-        	}
-            currentX = width / 2 + 95;
-            currentY = height - ( (fr.FONT_HEIGHT * brTipsGame.length) + (brTipsGame.length * 5) );
-            for (HintString hs : brTipsGame)
-        	{
-            	if (hs.isValid)
-            	{
-        			String outString = isHolding && hs.hintHolding != null ? hs.hintHolding :hs.hintNormal;
-            		drawTip(outString, 0xFFFFFF);
-            	}
-        	}
-        }	
-	}
-	
-	private void drawTip(String text, int color)
-	{
-		this.drawString(fr, text, currentX, currentY, color);
-		//fr.drawStringWithShadow(text, currentX, currentY, color);
-		currentY += fr.FONT_HEIGHT + 5;
-	}
+        if(!game && !container) {
+            int edge=Math.max(26,Math.min(100,(width-200)/2-16));
+            drawColumn(mc.fontRendererObj,device,MENU_LEFT,false,8,height-22,edge);
+            drawColumn(mc.fontRendererObj,device,MENU_RIGHT,false,width-8-edge,height-22,edge);
+            return;
+        }
+        boolean sides=width>=600;
+        int right=sides?width/2+106:width/2+4;
+        int maxWidth=sides?width/2-114:width/2-12;
+        int top=height-(game&&!sides?86:45);
+        drawColumn(mc.fontRendererObj,device,game?GAME_LEFT:container?CONTAINER_LEFT:MENU_LEFT,holding,8,top,maxWidth);
+        drawColumn(mc.fontRendererObj,device,game?GAME_RIGHT:container?CONTAINER_RIGHT:MENU_RIGHT,holding,right,top,maxWidth);
+    }
+    private void drawColumn(FontRenderer font,InputDevice device,String[][] hints,boolean holding,int x,int y,int maxWidth) {
+        for(String[] hint:hints) {
+            ControllerBinding binding=ControllerSettings.get(hint[0]);
+            if(binding==null || binding.inputEvent==null || !binding.inputEvent.isValid()) continue;
+            String key=holding && hint.length>2?hint[2]:hint[1];
+            String label=key==null?binding.getMenuItemName():McObfuscationHelper.lookupString(key);
+            label=font.trimStringToWidth(label,Math.max(0,maxWidth-24));
+            int width=Math.min(maxWidth,font.getStringWidth(label)+25);
+            drawRect(x,y,x+width,y+19,0xBC1C2017);
+            drawRect(x,y+18,x+width,y+19,0xC87C7150);
+            ControllerGlyphs.draw(ControllerGlyphs.resolve(device,binding.inputEvent),x+1,y+1,16);
+            font.drawStringWithShadow(label,x+21,y+5,PixelTheme.TEXT);
+            y+=21;
+        }
+    }
 }

@@ -96,7 +96,7 @@ public class McObfuscationHelper
 			else if (input.contains("Y+") || input.contains("Down"))
 				ret += symGet(JSyms.dArrow);
 			if (input.equals("joy.closeInventory"))
-				return doTranslate("key.inventory") + " " + symGet(JSyms.remove);
+				return doTranslate("improved.back");
 
 			if (ret != "")
 			{

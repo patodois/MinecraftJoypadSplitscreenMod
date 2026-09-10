@@ -48,7 +48,7 @@ public class JoypadAdvancedMenu extends GuiScreen
 			addButton(buttonNum++, 300 + i, gameOptions[i], true);
 		}
 
-		buttonList.add(new GuiButton(500, width / 2 - parent.bottomButtonWidth / 2, height - 20,
+		buttonList.add(new JoypadFlatButton(500, width / 2 - parent.bottomButtonWidth / 2, height - 20,
 				parent.bottomButtonWidth, 20, parent.sGet("gui.done")));
 	}
 
@@ -101,6 +101,12 @@ public class JoypadAdvancedMenu extends GuiScreen
 
 	}
 
+    @Override
+    protected void keyTyped(char character, int key) {
+        if (key == org.lwjgl.input.Keyboard.KEY_ESCAPE) mc.displayGuiScreen(parent);
+        else super.keyTyped(character, key);
+    }
+
 	@Override
 	public void drawScreen(int par1, int par2, float par3)
 	{
@@ -125,7 +131,7 @@ public class JoypadAdvancedMenu extends GuiScreen
 	{
 		int buttonBase = buttonNum % buttonsPerRow;
 		String buttonString = isToggle ? createToggleString(code, toggleValue) : McObfuscationHelper.lookupString(code);
-		buttonList.add(new GuiButton(id, buttonXStart_top + buttonWidth * buttonBase + buttonXSpacing * buttonBase,
+		buttonList.add(new JoypadFlatButton(id, buttonXStart_top + buttonWidth * buttonBase + buttonXSpacing * buttonBase,
 				buttonYStart_top + (buttonNum / buttonsPerRow) * buttonYSpacing, buttonWidth, 20, buttonString));
 	}
 

@@ -1,4 +1,4 @@
-# Joypad Enhanced 0.2.1 — Minecraft 1.7.10
+# Joypad Enhanced 0.3.0 — Minecraft 1.7.10
 
 Improved JoypadMod with native **Apple GameController support on macOS 11.3+**, and fixes for XInput controllers on Windows. The macOS JNI library includes Apple Silicon and Intel architectures.
 
@@ -13,6 +13,36 @@ Open **Options → Controls**. Select and enable your controller, then use **Tes
 Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the previous mod JAR if you want to revert.
 
 ## Changes
+
+### 0.3.0: pixel icons, Minecraft colors and console defaults
+
+![Controller icon and color preview](docs/controller-ui-preview.png)
+
+The image is a design preview rendered with the production sprite artwork and colors, not an in-game screenshot.
+
+- Original pixel-art controller glyphs replace plain input names/numbers in the HUD, binding buttons and controller test screen. Hints read the actual current binding, so custom remaps update their icons immediately.
+- Stone-gray beveled buttons, grass-green highlights, warm text and wood-colored accents replace the previous blue theme. Xbox face-button colors remain on the corresponding glyphs.
+- Inventory hints now reference the actual menu bindings. Narrow layouts use one bottom row for inventory hints and keep gameplay hints above the hotbar.
+- The default layout follows the supplied Controllable 1.12.2 reference for common actions, with Y explicitly extended to go back in menus. See the table below.
+- Existing profiles get a one-time migration of recognizable old defaults. Different custom input/output mappings are preserved. Use Reset twice in the settings menu to apply the complete new default profile.
+
+| Control | Gameplay | Menus / inventory |
+| --- | --- | --- |
+| A | Jump | Select / take or place a stack |
+| Y | Open inventory | Back / close using the screen's Escape behavior |
+| X | Interact (1.7.10 has no offhand slot) | Split a stack / place one |
+| B | Unassigned | Quick move |
+| LT / RT | Use item / attack | Unassigned |
+| LB / RB | Previous / next hotbar slot | Scroll |
+| LS click / RS click | Sprint / sneak | Unassigned |
+| View / Back | Player list | Unassigned |
+| Start / Menu | Pause | Close / resume |
+| D-pad up / down / left | Perspective / drop item / pick block | Unassigned |
+
+The controller test and binding-capture screens suspend gameplay/menu actions so pressing a button can be inspected or assigned safely. Use the mouse or keyboard Escape to leave those modes. Standardized backends use Xbox-style glyphs; unknown legacy layouts use a neutral button icon.
+
+The reference file's numeric button IDs are translated to the physical controls in this mod's backend; its Java classes and textures are not bundled. `tests/GenerateUiAssets.java` generates the original sprite atlas and design preview from `GlyphArt.java` and `PixelTheme.java` during the build.
+
 
 ### 0.2.1: capture the mouse during controller gameplay
 
@@ -34,12 +64,12 @@ The new **Capture mouse** setting defaults to on, including when upgrading a pro
 ## Validation
 
 - Built using JDK 8 against Minecraft 1.7.10 / Forge 10.13.4.1614.
-- 101 simulated input regression assertions and 19 headless cursor-transition assertions passed.
-- 2668 patched SRG member references checked against both Forge 1614 and Forge 1558.
+- 101 input assertions, 19 headless cursor-transition assertions and 38 profile/glyph assertions passed; all 27 generated glyphs stayed inside their atlas cells.
+- Patched SRG member references are checked against Minecraft/Forge; the 0.3.0 build also receives the Forge 1558 compatibility check.
 - Actual Xbox Wireless Controller detected over Bluetooth on macOS with Apple Silicon, including through the final JAR on Prism's ARM64 Java 8 runtime.
 - Tekxit with Forge 10.13.4.1558 started successfully with 130 mods and detected/selected the controller.
 - Controller diagnostics in 0.2.0 confirmed that all buttons, both sticks, and LT/RT responded. The native controller backend is unchanged in 0.2.1.
-- The new cursor behavior passed headless transition tests; an in-game visual confirmation of cursor capture is still pending.
+- The 0.3.0 interface artwork was visually inspected in the generated preview. Full in-game visual verification of the new hints and menu layout is still pending.
 
 A successful test was also reported on a **2017 Intel Mac**. Extended gameplay compatibility and Windows hardware still require further testing. Guide/Home may be reserved by the operating system. This is not a complete backport of modern Controlify or Controllable: focus-based console navigation, automatic glyphs, rumble and radial menus are outside this release.
 

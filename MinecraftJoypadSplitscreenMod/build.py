@@ -101,6 +101,12 @@ def main():
     remap(P / 'forge-binaries.jar', P / 'forge-srg.jar', P / 'joined.srg')
     merge(P / 'compile-srg.jar', [original, P / 'forge-srg.jar', P / 'minecraft-srg.jar'])
     remap(P / 'compile-srg.jar', P / 'compile-mcp.jar', P / 'srg-mcp.srg')
+    art_classes = B / 'art-tools'
+    art_classes.mkdir(exist_ok=True)
+    run(javac, '-encoding', 'UTF-8', '-d', art_classes,
+        ROOT / 'src/main/java/com/shiny/joypadmod/gui/GlyphArt.java',
+        ROOT / 'src/main/java/com/shiny/joypadmod/gui/PixelTheme.java', ROOT / 'tests/GenerateUiAssets.java')
+    run(java, '-Djava.awt.headless=true', '-cp', art_classes, 'GenerateUiAssets', ROOT)
     dependencies = [P / name for name in ['compile-mcp.jar', 'log4j-api.jar', 'log4j-core.jar', 'guava.jar', 'authlib.jar', 'commons-lang3.jar']]
     cp = os.pathsep.join(str(x) for x in dependencies)
     classes = B / 'classes'
@@ -113,6 +119,9 @@ def main():
     (B / 'tests').mkdir(exist_ok=True)
     run(javac, '-encoding', 'UTF-8', '-cp', str(classes) + os.pathsep + cp, '-d', B / 'tests', ROOT / 'tests/InputRegressionTest.java')
     run(java, '-Xverify:all', '-cp', str(B / 'tests') + os.pathsep + str(classes) + os.pathsep + cp, 'com.shiny.joypadmod.devices.InputRegressionTest')
+    profile_cp = str(B / 'tests') + os.pathsep + str(classes) + os.pathsep + cp
+    run(javac, '-encoding', 'UTF-8', '-cp', profile_cp, '-d', B / 'tests', ROOT / 'tests/ProfileAndGlyphTest.java')
+    run(java, '-Xverify:all', '-cp', profile_cp, 'com.shiny.joypadmod.devices.ProfileAndGlyphTest')
     cursor_tests = B / 'cursor-tests'
     if cursor_tests.exists():
         shutil.rmtree(cursor_tests)
@@ -144,7 +153,7 @@ def main():
         entries[name] = (resources / name).read_bytes()
     dist = ROOT / 'dist'
     dist.mkdir(exist_ok=True)
-    output = dist / 'JoypadMod-1.7.10-Enhanced-0.2.1.jar'
+    output = dist / 'JoypadMod-1.7.10-Enhanced-0.3.0.jar'
     with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted(entries.items()):
             info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))

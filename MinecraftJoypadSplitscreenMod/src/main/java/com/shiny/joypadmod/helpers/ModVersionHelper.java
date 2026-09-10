@@ -39,7 +39,7 @@ public class ModVersionHelper
 		// 1.6.4
 		// TickRegistry.registerTickHandler(new RenderTickHandler(),
 		// Side.CLIENT);
-		
+
 		Customizations.init();
 	}
 
@@ -74,23 +74,23 @@ public class ModVersionHelper
 			GameRenderHandler.HandleClientEndTick();
 		}
 	}
-	
+
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void buttonMapDisplay(RenderGameOverlayEvent.Post event)
 	{
 		if(event.isCancelable() || event.type != ElementType.EXPERIENCE)
-	    {      
+	    {
 	        return;
 	    }
-		new ButtonScreenTips();
+		if (Minecraft.getMinecraft().currentScreen == null) new ButtonScreenTips();
 	}
-	
+
 	public static ScaledResolution GetScaledResolution()
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		// 1.8.8
 		//return new ScaledResolution(mc);
-		// 1.7.10 - 1.8.2 
+		// 1.7.10 - 1.8.2
 		return new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		// 1.7.2
 		//return new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);

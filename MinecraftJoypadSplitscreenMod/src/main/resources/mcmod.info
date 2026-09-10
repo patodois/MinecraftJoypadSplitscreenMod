@@ -2,8 +2,8 @@
   {
     "modid": "JoypadSplitscreenMod",
     "name": "Joypad Enhanced (1.7.10)",
-    "version": "1.7.10-0.22-enhanced.2.1",
-    "description": "Improved JoypadMod: native macOS Bluetooth support, XInput fixes, controller diagnostics and automatic in-game mouse capture. Minecraft 1.7.10.",
+    "version": "1.7.10-0.22-enhanced.3",
+    "description": "Joypad Enhanced: pixel-art controller hints, Minecraft-inspired UI, console defaults, native macOS Bluetooth and XInput support.",
     "url": "https://github.com/patodois/MinecraftJoypadSplitscreenMod",
     "updateUrl": "github.com/ljsimin/MinecraftJoypadSplitscreenMod",
     "credits": "Forge, FML, MCP & everyone at Mojang, Freeshiny, Eastsider, BryanBlake, Nautigsam",

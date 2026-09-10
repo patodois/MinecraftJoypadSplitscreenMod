@@ -1,6 +1,7 @@
 package com.shiny.joypadmod.minecraftExtensions;
 
 import java.util.EnumSet;
+import com.shiny.joypadmod.gui.*;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
@@ -281,9 +282,11 @@ public class JoypadConfigMenu extends GuiScreen
         } else if (optionList != null) {
             optionList.drawScreen(mouseX, mouseY, partial);
         }
-        drawRect(0, 0, width, 104 - (diagnostics ? 26 : 0), 0xEE111827);
-        drawRect(0, height - 56, width, height, 0xEE111827);
-        drawCenteredString(getFontRenderer(), "Joypad Enhanced | 1.7.10", width / 2, 9, 0x6EE7C2);
+        drawRect(0, 0, width, 104 - (diagnostics ? 26 : 0), PixelTheme.PANEL);
+        drawRect(0, height - 56, width, height, PixelTheme.PANEL);
+        drawRect(0,0,width,2,0xFF647D39);
+        drawRect(0,2,width,3,0xFF9EAC68);
+        drawCenteredString(getFontRenderer(), "Joypad Enhanced | 1.7.10", width / 2, 9, PixelTheme.ACCENT);
         if (!diagnostics) { checkCustomBindTrigger(); checkSensitivitySliders(); }
         if (resetArmedUntil != 0 && Minecraft.getSystemTime() > resetArmedUntil) {
             resetArmedUntil = 0;
@@ -291,7 +294,7 @@ public class JoypadConfigMenu extends GuiScreen
         }
         updateControllerButton();
         String hint = sGet(diagnostics ? "improved.testHint" : "improved.bindHint");
-        drawCenteredString(getFontRenderer(), getFontRenderer().trimStringToWidth(hint, width - 16), width / 2, height - 22, 0xA8B6CC);
+        drawCenteredString(getFontRenderer(), getFontRenderer().trimStringToWidth(hint, width - 16), width / 2, height - 22, PixelTheme.MUTED);
         super.drawScreen(mouseX, mouseY, partial);
     }
 
@@ -305,27 +308,27 @@ public class JoypadConfigMenu extends GuiScreen
         String[] labels = {"A", "B", "X", "Y", "Back", "Start", "LB", "RB", "LS", "RS", "Up", "Down", "Left", "Right", "Guide"};
         int count = Math.min(15, device.getButtonCount());
         for (int i = 0; i < count; i++) {
-            int bx = x + (i % 5) * (w / 5), by = top + (i / 5) * 16;
+            int bx = x + (i % 5) * (w / 5), by = top + (i / 5) * 20;
             boolean down = device.isButtonPressed(i);
-            drawRect(bx, by, bx + w / 5 - 3, by + 14, down ? 0xFF247A64 : 0xFF263449);
-            String label = device instanceof com.shiny.joypadmod.devices.StandardGamepadDevice ? labels[i] : device.getButtonName(i);
-            drawCenteredString(getFontRenderer(), getFontRenderer().trimStringToWidth(label, w / 5 - 5), bx + (w / 5 - 3) / 2, by + 3, down ? 0xFFFFFF : 0xB7C4D8);
+            JoypadTheme.plate(bx,by,w/5-3,18,down,true);
+            GlyphArt.Icon icon=ControllerGlyphs.button(device,i);
+            ControllerGlyphs.draw(icon,bx+(w/5-19)/2,by+1,16);
         }
-        int axesTop = top + 52, colWidth = w / 2;
+        int axesTop = top + 61, colWidth = w / 2;
         String[] axisLabels = {"LS X", "LS Y", "RS X", "RS Y", "LT", "RT"};
         for (int i = 0; i < Math.min(6, device.getAxisCount()); i++) {
             int bx = x + (i % 2) * colWidth, by = axesTop + (i / 2) * 14;
             float value = device.getAxisValue(i);
             String label = device instanceof com.shiny.joypadmod.devices.StandardGamepadDevice ? axisLabels[i] : device.getAxisName(i);
-            getFontRenderer().drawString(getFontRenderer().trimStringToWidth(label, 38), bx, by + 1, 0xC5D1E3);
+            getFontRenderer().drawString(getFontRenderer().trimStringToWidth(label, 38), bx, by + 1, PixelTheme.TEXT);
             int barX = bx + 40, barWidth = colWidth - 82;
-            drawRect(barX, by + 2, barX + barWidth, by + 9, 0xFF263449);
+            drawRect(barX, by + 2, barX + barWidth, by + 9, PixelTheme.TRACK);
             int fill = (int)(Math.min(1f, Math.abs(value)) * barWidth);
-            drawRect(barX, by + 2, barX + fill, by + 9, value < 0 ? 0xFF79AFFF : 0xFF6EE7C2);
-            getFontRenderer().drawString(String.format(java.util.Locale.ROOT, "%.2f", value), bx + colWidth - 38, by + 1, 0xC5D1E3);
+            drawRect(barX, by + 2, barX + fill, by + 9, value < 0 ? PixelTheme.NEGATIVE : PixelTheme.POSITIVE);
+            getFontRenderer().drawString(String.format(java.util.Locale.ROOT, "%.2f", value), bx + colWidth - 38, by + 1, PixelTheme.TEXT);
         }
         String status = sGet(device.isConnected() ? "improved.connected" : "improved.disconnected") + "  #" + (id + 1);
-        if (height >= 250) drawCenteredString(getFontRenderer(), status, width / 2, axesTop + 46, device.isConnected() ? 0x6EE7C2 : 0xFF8888);
+        if (height >= 260) drawCenteredString(getFontRenderer(), status, width / 2, axesTop + 46, device.isConnected() ? PixelTheme.ACCENT : 0xFF8888);
     }
 
 	private void checkSensitivitySliders()

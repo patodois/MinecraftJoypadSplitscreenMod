@@ -22,7 +22,7 @@ controlMenu.toggleInstructions=Espaço ativa ou desativa o controle
 -Global-.displayAllControls=Mostrar todos os controles
 -User-.DisplayHints=Dicas dos botões
 -User-.LegacyInput=Entrada antiga
-menuHint.quickmove=Mover rapidamente
+menuHint.quickmove=Mover itens
 menuHint.takeall=Pegar tudo
 menuHint.placeall=Colocar tudo
 menuHint.takehalf=Pegar metade
@@ -67,3 +67,6 @@ key.togglePerspective=Mudar perspectiva
 key.use=Usar / colocar bloco
 
 -Global-.CaptureMouseInGame=Capturar mouse
+
+improved.back=Voltar
+improved.select=Selecionar

@@ -30,6 +30,7 @@ import com.shiny.joypadmod.helpers.McObfuscationHelper;
 import com.shiny.joypadmod.helpers.ModVersionHelper;
 import com.shiny.joypadmod.inputevent.AxisInputEvent;
 import com.shiny.joypadmod.inputevent.ButtonInputEvent;
+import com.shiny.joypadmod.inputevent.ConsolePreset;
 import com.shiny.joypadmod.inputevent.ControllerBinding;
 import com.shiny.joypadmod.inputevent.ControllerBinding.BindingOptions;
 import com.shiny.joypadmod.inputevent.ControllerUtils;
@@ -200,13 +201,13 @@ public class ControllerSettings
 						EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.CATEGORY_INVENTORY)));
 
 		joyBindingsMap.put("joy.drop",
-				new ControllerBinding("joy.drop", "Drop", new ButtonInputEvent(joyIndex, bMap.Back(), 1),
+				new ControllerBinding("joy.drop", "Drop", ConsolePreset.dpad(controller, 1),
 						new int[] { McObfuscationHelper.keyCode(settings.keyBindDrop) }, 0,
 						EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.REPEAT_IF_HELD,
 								BindingOptions.CATEGORY_GAMEPLAY)));
 
 		joyBindingsMap.put("joy.sneak",
-				new ControllerBinding("joy.sneak", "Sneak", new ButtonInputEvent(joyIndex, bMap.LS(), 1),
+				new ControllerBinding("joy.sneak", "Sneak", new ButtonInputEvent(joyIndex, bMap.RS(), 1),
 						new int[] { McObfuscationHelper.keyCode(settings.keyBindSneak) }, 0,
 						EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.REPEAT_IF_HELD,
 								BindingOptions.CATEGORY_MOVEMENT)));
@@ -250,8 +251,8 @@ public class ControllerSettings
 						EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.CATEGORY_GAMEPLAY)));
 
 		joyBindingsMap.put("joy.sprint",
-				new ControllerBinding("joy.sprint", "Sprint", new ButtonInputEvent(joyIndex, bMap.RS(), 1),
-						new int[] { Keyboard.KEY_LCONTROL }, 0, EnumSet.of(BindingOptions.GAME_BINDING,
+				new ControllerBinding("joy.sprint", "Sprint", new ButtonInputEvent(joyIndex, bMap.LS(), 1),
+						new int[] { McObfuscationHelper.keyCode(settings.keyBindSprint) }, 0, EnumSet.of(BindingOptions.GAME_BINDING,
 								BindingOptions.REPEAT_IF_HELD, BindingOptions.CATEGORY_GAMEPLAY)));
 
 		joyBindingsMap.put("joy.menu", new ControllerBinding("joy.menu", "Open menu",
@@ -332,9 +333,9 @@ public class ControllerSettings
 				EnumSet.of(BindingOptions.MENU_BINDING, BindingOptions.REPEAT_IF_HELD, BindingOptions.CATEGORY_UI)));
 
 		joyBindingsMap.put("joy.closeInventory",
-				new ControllerBinding("joy.closeInventory", "Close container",
+				new ControllerBinding("joy.closeInventory", "Back / close menu",
 						new ButtonInputEvent(joyIndex, bMap.Y(), 1),
-						new int[] { McObfuscationHelper.keyCode(settings.keyBindInventory) }, 100,
+						new int[] { Keyboard.KEY_ESCAPE }, 100,
 						EnumSet.of(BindingOptions.MENU_BINDING, BindingOptions.CATEGORY_INVENTORY)));
 
 		joyBindingsMap.put("joy.scrollDown",
@@ -349,8 +350,26 @@ public class ControllerSettings
 						EnumSet.of(BindingOptions.MENU_BINDING, BindingOptions.REPEAT_IF_HELD,
 								BindingOptions.RENDER_TICK, BindingOptions.CATEGORY_UI)));
 
-		if (updateWithConfigFile)
-			config.getJoypadSavedBindings(joyIndex, controller.getName());
+        joyBindingsMap.get("joy.drop").bindingOptions.remove(BindingOptions.REPEAT_IF_HELD);
+        joyBindingsMap.put("joy.playerlist", new ControllerBinding("joy.playerlist", "Player list",
+            new ButtonInputEvent(joyIndex, bMap.Back(), 1),
+            new int[]{McObfuscationHelper.keyCode(settings.keyBindPlayerList)}, 0,
+            EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.REPEAT_IF_HELD, BindingOptions.CATEGORY_MULTIPLAYER)));
+        joyBindingsMap.put("joy.togglePerspective", new ControllerBinding("joy.togglePerspective", "Change perspective",
+            ConsolePreset.dpad(controller, 0), new int[]{McObfuscationHelper.keyCode(settings.keyBindTogglePerspective)}, 0,
+            EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.CATEGORY_GAMEPLAY)));
+        joyBindingsMap.put("joy.pickItem", new ControllerBinding("joy.pickItem", "Pick block",
+            ConsolePreset.dpad(controller, 2), new int[]{McObfuscationHelper.keyCode(settings.keyBindPickBlock)}, 0,
+            EnumSet.of(BindingOptions.GAME_BINDING, BindingOptions.CATEGORY_GAMEPLAY)));
+        if (updateWithConfigFile) config.getJoypadSavedBindings(joyIndex, controller.getName());
+        String profileKey = config.getDefaultCategory() + "." + controller.getName() + ".EnhancedProfile3";
+        if (!"true".equals(config.getConfigFileSetting(profileKey))) {
+            for (String changed : ConsolePreset.migrate(joyBindingsMap, controller, bMap,
+                    McObfuscationHelper.keyCode(settings.keyBindInventory))) {
+                config.saveControllerBinding(controller.getName(), joyBindingsMap.get(changed));
+            }
+            config.setConfigFileSetting(profileKey, "true");
+        }
 
 		List<ControllerBinding> userBindings = config.getUserDefinedBindings(joyIndex);
 
