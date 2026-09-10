@@ -41,7 +41,7 @@ The new **Capture mouse** setting defaults to on, including when upgrading a pro
 - Controller diagnostics in 0.2.0 confirmed that all buttons, both sticks, and LT/RT responded. The native controller backend is unchanged in 0.2.1.
 - The new cursor behavior passed headless transition tests; an in-game visual confirmation of cursor capture is still pending.
 
-Extended gameplay compatibility, Intel macOS execution and Windows hardware were not tested in this iteration. Guide/Home may be reserved by the operating system. This is not a complete backport of modern Controlify or Controllable: focus-based console navigation, automatic glyphs, rumble and radial menus are outside this release.
+A successful test was also reported on a **2017 Intel Mac**. Extended gameplay compatibility and Windows hardware still require further testing. Guide/Home may be reserved by the operating system. This is not a complete backport of modern Controlify or Controllable: focus-based console navigation, automatic glyphs, rumble and radial menus are outside this release.
 
 ## Build
 
