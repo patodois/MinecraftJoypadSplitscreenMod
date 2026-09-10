@@ -101,12 +101,21 @@ def main():
     remap(P / 'forge-binaries.jar', P / 'forge-srg.jar', P / 'joined.srg')
     merge(P / 'compile-srg.jar', [original, P / 'forge-srg.jar', P / 'minecraft-srg.jar'])
     remap(P / 'compile-srg.jar', P / 'compile-mcp.jar', P / 'srg-mcp.srg')
+    # Artwork is committed. Building never uses PixelLab credentials or consumes quota.
+    art_manifest = json.loads((ROOT / 'art/pixellab/manifest.json').read_text())
+    if len(art_manifest) != 33:
+        raise SystemExit('Expected 27 controller glyphs and 6 widget states.')
+    for name, info in art_manifest.items():
+        if info['provider'] != 'PixelLab' or digest(ROOT / 'art/pixellab' / (name + '.png')) != info['sha256']:
+            raise SystemExit('PixelLab asset provenance/hash mismatch: ' + name)
     art_classes = B / 'art-tools'
     art_classes.mkdir(exist_ok=True)
     run(javac, '-encoding', 'UTF-8', '-d', art_classes,
         ROOT / 'src/main/java/com/shiny/joypadmod/gui/GlyphArt.java',
-        ROOT / 'src/main/java/com/shiny/joypadmod/gui/PixelTheme.java', ROOT / 'tests/GenerateUiAssets.java')
-    run(java, '-Djava.awt.headless=true', '-cp', art_classes, 'GenerateUiAssets', ROOT)
+        ROOT / 'src/main/java/com/shiny/joypadmod/gui/PixelLabSkinLayout.java',
+        ROOT / 'tests/PackPixelLabAssets.java', ROOT / 'tests/SkinLayoutTest.java')
+    run(java, '-Djava.awt.headless=true', '-cp', art_classes, 'PackPixelLabAssets', ROOT)
+    run(java, '-cp', art_classes, 'SkinLayoutTest')
     dependencies = [P / name for name in ['compile-mcp.jar', 'log4j-api.jar', 'log4j-core.jar', 'guava.jar', 'authlib.jar', 'commons-lang3.jar']]
     cp = os.pathsep.join(str(x) for x in dependencies)
     classes = B / 'classes'
@@ -153,7 +162,7 @@ def main():
         entries[name] = (resources / name).read_bytes()
     dist = ROOT / 'dist'
     dist.mkdir(exist_ok=True)
-    output = dist / 'JoypadMod-1.7.10-Enhanced-0.3.0.jar'
+    output = dist / 'JoypadMod-1.7.10-Enhanced-0.4.0.jar'
     with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted(entries.items()):
             info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))

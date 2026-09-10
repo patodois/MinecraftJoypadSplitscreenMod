@@ -6,6 +6,8 @@ import org.lwjgl.opengl.GL11;
 import com.shiny.joypadmod.helpers.McObfuscationHelper;
 
 import net.minecraft.client.Minecraft;
+import com.shiny.joypadmod.gui.JoypadTheme;
+import com.shiny.joypadmod.gui.PixelTheme;
 import net.minecraft.util.StatCollector;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -59,28 +61,24 @@ public class GuiSlider extends GuiButton
 	/**
 	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
 	 */
-	@Override
-	protected void mouseDragged(Minecraft minecraft, int mouseX, int mouseY)
-	{
-		// something is awry with this receiving the mouse released event so check manually if button pressed
-		if (!Mouse.isButtonDown(0))
-			this.dragging = false;
-
-		if (this.visible)
-		{
-			if (this.dragging)
-			{
-				setValue((float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8));
-				this.updateText();
-			}
-
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)), this.yPosition, 0,
-					66, 4, 20);
-			this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)) + 4,
-					this.yPosition, 196, 66, 4, 20);
-		}
-	}
+    @Override
+    protected void mouseDragged(Minecraft minecraft,int mouseX,int mouseY) {
+        if(!Mouse.isButtonDown(0)) dragging=false;
+        if(visible && enabled && dragging) {
+            setValue((float)(mouseX-xPosition-4)/(width-8));
+            updateText();
+        }
+    }
+    @Override
+    public void drawButton(Minecraft mc,int mouseX,int mouseY) {
+        if(!visible) return;
+        mouseDragged(mc,mouseX,mouseY);
+        boolean hover=mouseX>=xPosition && mouseX<xPosition+width && mouseY>=yPosition && mouseY<yPosition+height;
+        JoypadTheme.plate(xPosition,yPosition,width,height,hover||dragging,enabled);
+        JoypadTheme.thumb(xPosition+(int)(getValue()*(width-8)),yPosition+2,8,height-4,hover||dragging,enabled);
+        drawCenteredString(mc.fontRendererObj,mc.fontRendererObj.trimStringToWidth(displayString,width-8),
+            xPosition+width/2,yPosition+(height-8)/2,enabled?PixelTheme.TEXT:PixelTheme.MUTED);
+    }
 
 	/**
 	 * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent e).
@@ -125,12 +123,12 @@ public class GuiSlider extends GuiButton
 		}
 		if (output != "")
 		{
-			FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+			FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
 			String value = ": " + (int) (this.sliderValue * 100.0F);
 			this.displayString = fr.trimStringToWidth(output, this.width - fr.getStringWidth(value)) + value;
 		}
 		else
-		{			
+		{
 			this.displayString = StatCollector.translateToLocalFormatted(this.baseDisplayString,
 					(int) (this.sliderValue * 100.0F));
 		}

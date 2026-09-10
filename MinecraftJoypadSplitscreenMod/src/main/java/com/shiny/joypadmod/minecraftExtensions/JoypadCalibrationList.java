@@ -156,8 +156,8 @@ public class JoypadCalibrationList extends GuiScrollingList
 		InputDevice controller = ControllerSettings.JoypadModInputLibrary.getController(joypadIndex);
 		int yPos = yStart;
 		DecimalFormat df = new DecimalFormat("#0.00");
-		int autoButtonWidth = mc.fontRenderer.getStringWidth(McObfuscationHelper.lookupString("calibrationMenu.auto")) + 10;
-		int resetButtonWidth = mc.fontRenderer.getStringWidth(McObfuscationHelper.lookupString("controls.reset")) + 10;
+		int autoButtonWidth = mc.fontRendererObj.getStringWidth(McObfuscationHelper.lookupString("calibrationMenu.auto")) + 10;
+		int resetButtonWidth = mc.fontRendererObj.getStringWidth(McObfuscationHelper.lookupString("controls.reset")) + 10;
 		int directionButWidth = 15;
 
 		int maxSize = parent.fr.getStringWidth("X Axis:");
@@ -187,23 +187,23 @@ public class JoypadCalibrationList extends GuiScrollingList
 			{
 				toggleSign = McObfuscationHelper.symGet(McObfuscationHelper.JSyms.fCircle);
 			}
-			buttonList.add(new GuiButton(axisNum + 400, xPos2, yPos + yOffset, directionButWidth, 20, "" + toggleSign));
+			buttonList.add(new JoypadFlatButton(axisNum + 400, xPos2, yPos + yOffset, directionButWidth, 20, "" + toggleSign));
 			xPos2 -= directionButWidth - xOffset;
 
-			buttonList.add(new GuiButton(axisNum + 300, xPos2, yPos + yOffset, directionButWidth, 20, ">"));
+			buttonList.add(new JoypadFlatButton(axisNum + 300, xPos2, yPos + yOffset, directionButWidth, 20, ">"));
 			xPos2 -= resetButtonWidth - xOffset;
-			buttonList.add(new GuiButton(axisNum + 200, xPos2, yPos + yOffset, resetButtonWidth, 20,
+			buttonList.add(new JoypadFlatButton(axisNum + 200, xPos2, yPos + yOffset, resetButtonWidth, 20,
 					McObfuscationHelper.lookupString("controls.reset")));
 			xPos2 -= directionButWidth - xOffset;
-			buttonList.add(new GuiButton(axisNum + 100, xPos2, yPos + yOffset, directionButWidth, 20, "<"));
+			buttonList.add(new JoypadFlatButton(axisNum + 100, xPos2, yPos + yOffset, directionButWidth, 20, "<"));
 			xPos2 -= autoButtonWidth - xOffset;
-			buttonList.add(new GuiButton(axisNum, xPos2, yPos + yOffset, autoButtonWidth, 20,
+			buttonList.add(new JoypadFlatButton(axisNum, xPos2, yPos + yOffset, autoButtonWidth, 20,
 					McObfuscationHelper.lookupString("calibrationMenu.auto")));
 
 			/*
-			 * buttonList.add(new GuiButton(axisNum, xPos, yPos + yOffset, autoButtonWidth, 20, McObfuscationHelper.lookupString("calibrationMenu.auto"))); buttonList.add(new GuiButton(axisNum + 100,
-			 * xPos + autoButtonWidth + xOffset, yPos + yOffset, directionButWidth, 20, "<")); buttonList.add(new GuiButton(axisNum + 200, xPos + autoButtonWidth + directionButWidth + xOffset * 2,
-			 * yPos + yOffset, resetButtonWidth, 20, McObfuscationHelper.lookupString("controls.reset"))); buttonList.add(new GuiButton(axisNum + 300, xPos + autoButtonWidth + resetButtonWidth +
+			 * buttonList.add(new JoypadFlatButton(axisNum, xPos, yPos + yOffset, autoButtonWidth, 20, McObfuscationHelper.lookupString("calibrationMenu.auto"))); buttonList.add(new JoypadFlatButton(axisNum + 100,
+			 * xPos + autoButtonWidth + xOffset, yPos + yOffset, directionButWidth, 20, "<")); buttonList.add(new JoypadFlatButton(axisNum + 200, xPos + autoButtonWidth + directionButWidth + xOffset * 2,
+			 * yPos + yOffset, resetButtonWidth, 20, McObfuscationHelper.lookupString("controls.reset"))); buttonList.add(new JoypadFlatButton(axisNum + 300, xPos + autoButtonWidth + resetButtonWidth +
 			 * directionButWidth + xOffset * 3, yPos + yOffset, directionButWidth, 20, ">"));
 			 */
 		}

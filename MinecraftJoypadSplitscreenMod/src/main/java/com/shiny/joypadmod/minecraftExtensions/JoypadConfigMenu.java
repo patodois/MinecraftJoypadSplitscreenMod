@@ -52,7 +52,7 @@ public class JoypadConfigMenu extends GuiScreen
 	// bottom button parameters
 	private int buttonYStart_bottom;
 	public int bottomButtonWidth = 70;
-	
+
 	public int lastKeyCode = -1;
 
 	private GuiScreen parentScr;
@@ -135,8 +135,8 @@ public class JoypadConfigMenu extends GuiScreen
         addButton(new JoypadFlatButton(500, x + (bw + 4) * 4, buttonYStart_bottom, bw, 20, sGet("gui.done")));
         addButton(new JoypadFlatButton(420, x + (bw + 4) * 2, buttonYStart_bottom, bw, 20, sGet("controlMenu.advanced")));
         addButton(new JoypadFlatButton(520, x + (bw + 4) * 3, buttonYStart_bottom, bw, 20, sGet("improved.keyboard")));
-        addButton(new JoypadFlatButton(600, x, 54, w / 2 - 2, 20, sGet("improved.bindings")), diagnostics);
-        addButton(new JoypadFlatButton(601, x + w / 2 + 2, 54, w / 2 - 2, 20, sGet("improved.test")), !diagnostics && joyConfigMenuEnabled());
+        addButton(new JoypadFlatButton(600, x, 54, w / 2 - 2, 20, sGet("improved.bindings")).selected(!diagnostics), diagnostics);
+        addButton(new JoypadFlatButton(601, x + w / 2 + 2, 54, w / 2 - 2, 20, sGet("improved.test")).selected(diagnostics), !diagnostics && joyConfigMenuEnabled());
         controlListYStart = 106;
         controlListXStart = x;
         controlListWidth = w;
@@ -387,15 +387,15 @@ public class JoypadConfigMenu extends GuiScreen
 			this.lastKeyCode = code;
 			return;
 		}
-		
-		if (JoypadControlList.textInputName != null 
+
+		if (JoypadControlList.textInputName != null
 				&& JoypadControlList.textInputName.getVisible())
 		{
 			this.lastKeyCode = code;
 			JoypadControlList.textInputName.textboxKeyTyped(c, code);
 			return;
 		}
-		
+
 		if (c == ' ' && controllers.size() > 0)
 		{
 			toggleController();
@@ -471,7 +471,7 @@ public class JoypadConfigMenu extends GuiScreen
 		// field_146292_n.add(guiButton);
 		buttonList.add(guiButton);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void addButton(GuiButton guiButton)
 	{

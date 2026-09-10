@@ -34,7 +34,7 @@ public class JoypadCalibrationMenu extends GuiScreen
 	private JoypadCalibrationList calibrationList = null;
 	private List<Integer> singleDirectionAxisSaved = null;
 
-	FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+	FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
 
 	String[] instructions = new String[] { "calibrationMenu.instructions1", "calibrationMenu.instructions2",
 			"calibrationMenu.save" };
@@ -76,7 +76,7 @@ public class JoypadCalibrationMenu extends GuiScreen
 
 		int xPos = width / 2 - bottomButtonWidth / 2;
 
-		GuiButton doneButton = new GuiButton(500, xPos, buttonYStart_bottom, bottomButtonWidth, 20, McObfuscationHelper.lookupString("gui.cancel"));
+		GuiButton doneButton = new JoypadFlatButton(500, xPos, buttonYStart_bottom, bottomButtonWidth, 20, McObfuscationHelper.lookupString("gui.cancel"));
 
 		// these buttons will be moved if we display axis values
 		if (joypadIndex != -1 && ControllerSettings.JoypadModInputLibrary.getController(joypadIndex).getAxisCount() > 0)
@@ -88,7 +88,7 @@ public class JoypadCalibrationMenu extends GuiScreen
 					height - 25, 0, entryHeight, joypadIndex, this);
 
 			xPos -= bottomButtonWidth / 2;
-			buttonList.add(new GuiButton(400, xPos, buttonYStart_bottom, bottomButtonWidth, 20,
+			buttonList.add(new JoypadFlatButton(400, xPos, buttonYStart_bottom, bottomButtonWidth, 20,
 					McObfuscationHelper.lookupString("calibrationMenu.save")));
 			xPos += bottomButtonWidth;
 			doneButton.xPosition += bottomButtonWidth / 2;
@@ -141,7 +141,7 @@ public class JoypadCalibrationMenu extends GuiScreen
 						ControllerSettings.toggleSingleDirectionAxis(joypadIndex, i);
 				}
 			}
-			
+
 			mc.displayGuiScreen(this.parent);
 			break;
 		}

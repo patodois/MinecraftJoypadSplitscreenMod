@@ -44,8 +44,8 @@ public final class ControllerGlyphs {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA,GL11.GL_ONE_MINUS_SRC_ALPHA);
         int id=icon.ordinal();
-        Gui.drawScaledCustomSizeModalRect(x,y,(id%GlyphArt.COLUMNS)*16f,(id/GlyphArt.COLUMNS)*16f,
-            16,16,size,size,(float)GlyphArt.WIDTH,(float)GlyphArt.HEIGHT);
+        Gui.drawScaledCustomSizeModalRect(x,y,(id%GlyphArt.COLUMNS)*(float)GlyphArt.SIZE,(id/GlyphArt.COLUMNS)*(float)GlyphArt.SIZE,
+            GlyphArt.SIZE,GlyphArt.SIZE,size,size,(float)GlyphArt.WIDTH,(float)GlyphArt.HEIGHT);
         if(!blend) GL11.glDisable(GL11.GL_BLEND);
     }
 }

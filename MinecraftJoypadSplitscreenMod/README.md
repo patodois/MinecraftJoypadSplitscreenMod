@@ -1,4 +1,4 @@
-# Joypad Enhanced 0.3.0 — Minecraft 1.7.10
+# Joypad Enhanced 0.4.0 — Minecraft 1.7.10
 
 Improved JoypadMod with native **Apple GameController support on macOS 11.3+**, and fixes for XInput controllers on Windows. The macOS JNI library includes Apple Silicon and Intel architectures.
 
@@ -13,6 +13,17 @@ Open **Options → Controls**. Select and enable your controller, then use **Tes
 Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the previous mod JAR if you want to revert.
 
 ## Changes
+
+### 0.4.0: PixelLab artwork for every controller icon and mod-owned button
+
+All **27 controller glyphs** and **6 widget states** were generated or refined through PixelLab using the project owner's subscription. The widgets cover normal, highlighted and disabled buttons, plus normal, highlighted and disabled slider handles. Main settings, bindings, diagnostics, advanced settings and calibration use the new textures.
+
+Layout guides were used during PixelLab refinement to preserve exact button labels and arrow directions. The raw final PixelLab outputs and their generation provenance are in `art/pixellab/`; no old procedural glyph artwork is used. Minecraft still draws interface text so labels remain localized and readable.
+
+The offline packer trims transparent padding, fits the controller glyphs into their atlas cells with nearest-neighbor sampling, and packs the widget states. Nine-slice rendering tiles the generated texture instead of stretching the center pattern across wide buttons. Selected tabs use the highlighted state.
+
+Building and running the mod **never call PixelLab or require an API key**. The committed PNG files are checked against their recorded hashes and packed locally. Account credentials and generation-client configuration are not included.
+
 
 ### 0.3.0: pixel icons, Minecraft colors and console defaults
 
@@ -37,7 +48,7 @@ Existing settings receive a one-time `.before-enhanced.bak` backup. Keep the pre
 
 The controller test and binding-capture screens suspend gameplay/menu actions so pressing a button can be inspected or assigned safely. Use the mouse or keyboard Escape to leave those modes. Standardized backends use Xbox-style glyphs; unknown legacy layouts use a neutral button icon.
 
-The reference file's numeric button IDs are translated to the physical controls in this mod's backend; its Java classes and textures are not bundled. `tests/GenerateUiAssets.java` generates the original sprite atlas and design preview from `GlyphArt.java` and `PixelTheme.java` during the build.
+The reference file's numeric button IDs are translated to the physical controls in this mod's backend; its Java classes and textures are not bundled. In 0.4.0, `tests/PackPixelLabAssets.java` packs the versioned PixelLab PNG assets offline; `GlyphArt.java` only defines stable icon IDs and atlas dimensions.
 
 ### 0.2.1: capture the mouse during controller gameplay
 
@@ -59,12 +70,12 @@ The new **Capture mouse** setting defaults to on, including when upgrading a pro
 ## Validation
 
 - Built using JDK 8 against Minecraft 1.7.10 / Forge 10.13.4.1614.
-- 101 input assertions, 19 headless cursor-transition assertions and 38 profile/glyph assertions passed; all 27 generated glyphs stayed inside their atlas cells.
-- Patched SRG member references are checked against Minecraft/Forge; the 0.3.0 build also receives the Forge 1558 compatibility check.
+- 101 input assertions, 19 cursor-transition assertions, 38 profile/glyph assertions and 135 button size/state coverage checks passed. All 33 PixelLab source images are present and hash-verified.
+- 3488 SRG member references verified against Forge 1614 and Forge 1558.
 - Actual Xbox Wireless Controller detected over Bluetooth on macOS with Apple Silicon, including through the final JAR on Prism's ARM64 Java 8 runtime.
 - Tekxit with Forge 10.13.4.1558 started successfully with 130 mods and detected/selected the controller.
 - Controller diagnostics in 0.2.0 confirmed that all buttons, both sticks, and LT/RT responded. The native controller backend is unchanged in 0.2.1.
-- The 0.3.0 interface artwork was visually inspected in the generated preview. Full in-game visual verification of the new hints and menu layout is still pending.
+- Final PixelLab icons and packed widget textures were visually inspected. Full in-game confirmation of the 0.4.0 artwork is still pending.
 
 A successful test was also reported on a **2017 Intel Mac**. Extended gameplay compatibility and Windows hardware still require further testing. Guide/Home may be reserved by the operating system. This is not a complete backport of modern Controlify or Controllable: focus-based console navigation, automatic glyphs, rumble and radial menus are outside this release.
 

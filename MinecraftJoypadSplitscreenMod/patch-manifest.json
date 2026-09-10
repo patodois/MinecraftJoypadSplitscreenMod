@@ -14,6 +14,7 @@
     "com/shiny/joypadmod/gui/ControllerGlyphs.java",
     "com/shiny/joypadmod/gui/GlyphArt.java",
     "com/shiny/joypadmod/gui/JoypadTheme.java",
+    "com/shiny/joypadmod/gui/PixelLabSkinLayout.java",
     "com/shiny/joypadmod/gui/PixelTheme.java",
     "com/shiny/joypadmod/helpers/ConfigFile.java",
     "com/shiny/joypadmod/helpers/McObfuscationHelper.java",
@@ -21,7 +22,10 @@
     "com/shiny/joypadmod/inputevent/ConsolePreset.java",
     "com/shiny/joypadmod/inputevent/ControllerInputEvent.java",
     "com/shiny/joypadmod/inputevent/ControllerUtils.java",
+    "com/shiny/joypadmod/minecraftExtensions/GuiSlider.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadAdvancedMenu.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadCalibrationList.java",
+    "com/shiny/joypadmod/minecraftExtensions/JoypadCalibrationMenu.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadConfigMenu.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadControlList.java",
     "com/shiny/joypadmod/minecraftExtensions/JoypadFlatButton.java",
@@ -32,6 +36,7 @@
     "assets/joypadmod/lang/en_US.lang",
     "assets/joypadmod/lang/pt_BR.lang",
     "assets/joypadmod/textures/gui/controller_glyphs.png",
+    "assets/joypadmod/textures/gui/pixellab_widgets.png",
     "mcmod.info",
     "natives/macos/libjoypadgamecontroller.dylib"
   ]

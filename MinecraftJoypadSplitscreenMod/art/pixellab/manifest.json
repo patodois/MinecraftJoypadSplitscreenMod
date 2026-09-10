@@ -1,0 +1,663 @@
+{
+  "A": {
+    "provider": "PixelLab",
+    "model": "UI Pro",
+    "endpoint": "https://api.pixellab.ai/v2/generate-ui-v2",
+    "selection": "candidate 17",
+    "request": {
+      "description": "A single circular Xbox-style gamepad A button icon for a Minecraft Java controller mod. Front view, straight-on flat 2D pixel art. The face is grass green enamel, with one large clearly readable ivory capital letter A centered. A thin dark charcoal pixel outline, simple gray stone rim with a subtle upper-left bevel. Clean bold silhouette, low detail, strong contrast, generous clear letter, fits completely in the canvas. No controller body, no scene, no extra words, no perspective, no decorative flourishes. Transparent background. Designed for a readable 32x32 game HUD icon.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "no_background": true,
+      "seed": 710032,
+      "color_palette": "grass green button face, warm ivory capital A, charcoal outline, medium stone gray rim"
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 20.0
+    },
+    "sha256": "dbe8ae4644ea9aaa9e992d9fb3d1198d7c09a0de6bb3980d7095abc76e329ec3"
+  },
+  "B": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "d7391a55fb34d67f26bc54dbd95973cb605da8cb752110dfdcabc8a1a2a65470",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. Round brick red button face with one large bold ivory capital letter B centered.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "X": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "a73486031b9959a87f7dae22850461525e2dfe315de2406082feaf5696a1fc8f",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. Round muted blue button face with one large bold ivory capital letter X centered.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "Y": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "e2801bfe4f5c26095615979a61589997815001c39a3310f1df9117de07a80834",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. Round warm golden yellow button face with one large bold ivory capital letter Y centered.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "VIEW": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "ea8d9a3c291769528e5cbf190b98a2301c59bbb6dba3b40db50d8d38be3ca360",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. Small horizontal charcoal-gray controller button with an ivory icon of two overlapping outlined rectangles. Only the two overlapping rectangles, no words or letters.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "MENU": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "d2ce261500142c48cc2d02d500f2716bfb0c3c30faf1186c7bfc5cbaff87b8b1",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. Small horizontal charcoal-gray controller button with exactly three thick ivory horizontal menu lines centered. No letters or words.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "LB": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters LB as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "7e9782ebf8a993dc2104fde808a6ac5c178a7d03e38357387468e1b71c4f9aed",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "2e743c8134053ea6511652343e30cd2e34fe9373fa3b465c9c22d80ce8f397e5"
+  },
+  "RB": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters RB as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "42577723dcf2329bcb41b68602aef8d10dfe817135eeb6c6c100626ceb06bb71",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "32a53d022c7077deb5e92b8de279d0acfc92e9e3f4c5ce0799eeaa875c3eeb27"
+  },
+  "LS": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters LS as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "90fae1ba5627b1ca62fe21549d7f275f7081a3d564b5cd7e06d622bb22498fb9",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "28c15de078b6e770b6fbebd200cda91b901fde71b4a144404051564aa92cf605"
+  },
+  "RS": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters RS as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "281ba9092115efdc93a016388ab1f1c14abd978bc73e5dc62590378d4a287650",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "2885657d9cc6d42abf0dcd1aa74d5e2ad591c8cb16d68b79918ea15d82604ee8"
+  },
+  "DPAD_UP": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Refine this plus-shaped directional-pad icon into clean polished pixel art for Minecraft. Keep exactly the same cross silhouette and arrow direction. The UP arm is grass green, the arrow points UP, all other arms are gray stone. Subtle bevel and charcoal outline. Do not turn this into a whole controller or a character. No text, no fingers, no extra shapes. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "e6635a060b60bb5765390080a9bd061472530923fa09291b695d7d7b0977bfdc",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "e5e3a72573f7f791bb42ff8342d8be99b02fc2742b579901297e6f826bf71a43"
+  },
+  "DPAD_DOWN": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Keep this cross-shaped gray D-pad icon exactly. The green lower arm must contain a clearly visible solid bright ivory DOWN arrow pointing toward the bottom edge. Make the ivory downward triangle bold and high-contrast, with a short thick ivory vertical shaft extending from the center of the cross. Keep the other three arms plain gray. Keep the original pixel outline and transparent background. Do not remove or recolor the ivory arrow.",
+      "width": 32,
+      "height": 32,
+      "seed": 710406,
+      "no_background": true
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "6b737a0770dd327a1ab7d90b0c89a3f7c91dfe4c8a1ee70afae12f7e12be29b1"
+  },
+  "DPAD_LEFT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Refine this plus-shaped directional-pad icon into clean polished pixel art for Minecraft. Keep exactly the same cross silhouette and arrow direction. The LEFT arm is grass green, the arrow points LEFT, all other arms are gray stone. Subtle bevel and charcoal outline. Do not turn this into a whole controller or a character. No text, no fingers, no extra shapes. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "7fd830478f380dc493c4537b184bbbcc33b493ea24189a8c9f41d41003878b4b",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "87e7648cc73f86dcebf5a654f6b85802a70aa3df037800769601a4a944803719"
+  },
+  "DPAD_RIGHT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Refine this plus-shaped directional-pad icon into clean polished pixel art for Minecraft. Keep exactly the same cross silhouette and arrow direction. The RIGHT arm is grass green, the arrow points RIGHT, all other arms are gray stone. Subtle bevel and charcoal outline. Do not turn this into a whole controller or a character. No text, no fingers, no extra shapes. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "48678672909c9c2fba0510e541326e809f487e28bb40adf9bd0c70e619c8fa26",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "95773ba163d15bffa4496206600c372c54adc436b185797fbd250cc188a607da"
+  },
+  "GUIDE": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "44fb99b421145b710101cfad38ba0829782aa263780f2727785a2442c9cddbef",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. A circular light stone-gray system button with a dark round face and an ivory Xbox-style crossed curved X symbol. Neutral monochrome, not a blue face button, no other text.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "LT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters LT as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "1022beafe1c97a6cba4cb3012617b95b46cf45436d2b04ae7c8dd64c81a50d3b",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "977ef5d3b3d941b4225fb46ce5833d706fc8b4552501815a07279b0ecb10b9eb"
+  },
+  "RT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this layout into a Minecraft-style gray stone controller button icon. Preserve the exact uppercase letters RT as drawn, including their order and equal size. Add a subtle beveled gray rim and a clean charcoal outline. Keep the same front-facing silhouette, centered label, and transparent background. No additional letters, no extra objects, no perspective. Crisp pixel art, low detail, high contrast.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "3002ac7fbf8a843655cb5f4e396fde632f341b8e0a47af20170fea34da975a3e",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "639fe31ead3d487955a8cd0449e052e46261a0c4409384ba5ce6adfe8bf6c05f"
+  },
+  "UNBOUND": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "bd176c5a3acde5fc21d09c081698b9adf981299e93a290e427568db60db051ac",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. A circular gray button with one large centered ivory horizontal minus sign. No letters or numbers.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "BUTTON": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "5d8d84a4799177ac95a2efdbcaf5a3043e91e5f19aca69ffc1a8ba08780bf953",
+    "request": {
+      "description": "Single game controller button icon for a Minecraft-style inventory and HUD. Exactly front-facing flat 2D pixel art, charcoal outline, gray stone beveled rim, subtle upper-left light, bold simple readable silhouette. The icon fills most of a 32x32 canvas. Transparent outside the icon. No scenery, no controller body, no extra buttons, no perspective, no drop shadow outside the icon. A circular gray button with one large centered ivory round dot. No letters or numbers.",
+      "image_size": {
+        "width": 32,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "LS_UP": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase LS letters in the upper half and the exact ivory triangular arrow pointing UP in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "5511de2bcda58e71025fb2434e552f1f9a18afa055458e8abb7eb16f10c7ee96",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "b5f2f373882a431d690f79dd199a7a6f4e706f9d70f0d201488cd1d0b3dc3880"
+  },
+  "LS_DOWN": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase LS letters in the upper half and the exact ivory triangular arrow pointing DOWN in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "f1263e16ef03e6355718860f36499fabb8e2ab5608dc1aad000ece6c1719f8d0",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "6f9fb747918fb77c9a402a4c5376df8835639b2a3628a2754e89f85fc66db033"
+  },
+  "LS_LEFT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase LS letters in the upper half and the exact ivory triangular arrow pointing LEFT in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "4094708cdb9940367612f2c3d57da88b5776452fbdb7722b014304bee1f36dc0",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "50e03848bf14087091db64fda64b12f40c66778d4e649fedbb166212686b1060"
+  },
+  "LS_RIGHT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase LS letters in the upper half and the exact ivory triangular arrow pointing RIGHT in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "c316d714a4dc01e790cc195755ca832ed08780e61be42126d7ce7b7b25131062",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "21e1f9541f47ad172d2c94960f664e83aa3bfbb35b1d72dd2a43c53b9519dd55"
+  },
+  "RS_UP": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase RS letters in the upper half and the exact ivory triangular arrow pointing UP in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "1531c1c75faac0f1493fb4dd33b1c720121c0af81ff5d22b70e2a11d7e623371",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "ca83ee7f2dc571e56b9763d47b6160bf35067aeee387e8ac1ff49275fd63ce68"
+  },
+  "RS_DOWN": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase RS letters in the upper half and the exact ivory triangular arrow pointing DOWN in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "2bf04d336657685cf61c74456857d71022c9fb612519c480e2815af5aa75b9a1",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "f480f5f7e07416bc988355e8dd8fb95fba1966edafa657e873d0c8e25a9db0a5"
+  },
+  "RS_LEFT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase RS letters in the upper half and the exact ivory triangular arrow pointing LEFT in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "181c0955c9f1b7f448b365c534ac098161752162b21ef006c501afeb50ccec38",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "783d88d6a03c5143059fd2767221179ea3c87e21f09195a2c659ea1f3baae5d1"
+  },
+  "RS_RIGHT": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this gray analog-stick direction button into Minecraft-style pixel art. Preserve the exact uppercase RS letters in the upper half and the exact ivory triangular arrow pointing RIGHT in the lower half. Keep the round silhouette and layout, subtle gray stone bevel, charcoal border. No mouse cursor, no additional symbols, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "0532f16eee31d26177484415fc92646c286a5738b2c3ef7123b1a28576090d56",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "73749486ed65c7e0bcf8885a18fcd859cf03aa64588ab34adb3052d3a75735c2"
+  },
+  "BUTTON_NORMAL": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "de16c145acdda9c68e1348ec5bdbc93784e39a675db202372efcd5b00903c719",
+    "request": {
+      "description": "A single wide rectangular GUI button, neutral gray stone with a thin charcoal border, subtly beveled edge, completely flat broad empty dark gray center for readable white text. Minecraft inventory style pixel art. Front-facing rectangle, symmetrical, no words, no symbols, no rivets, no decorations, no scene, no perspective. Fill the canvas with the rectangular button, transparent only at very small corner cutouts.",
+      "image_size": {
+        "width": 64,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "BUTTON_HOVER": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "94d302dad58ee44fb338d6323debb9bd88cf64bf63b0d46a33c336ce7b755a5c",
+    "request": {
+      "description": "A single wide rectangular GUI button in selected hover state, gray stone with a grass-green border and warm ivory highlight on the upper edge, subtly beveled edge, flat broad empty dark gray center for readable white text. Minecraft inventory style pixel art. Front-facing rectangle, symmetrical, no words, no symbols, no rivets, no decorations, no scene, no perspective. Fill the canvas with the rectangular button, transparent only at very small corner cutouts.",
+      "image_size": {
+        "width": 64,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "BUTTON_DISABLED": {
+    "provider": "PixelLab",
+    "model": "Pixen",
+    "endpoint": "https://api.pixellab.ai/v2/create-image-pixen",
+    "sha256": "33da7df8b685a4c8a424e9683cf8a8d56a64fb2a8707ad4e708b9a3794c0ea6d",
+    "request": {
+      "description": "A single wide rectangular GUI button in disabled state, dark charcoal gray stone with a subdued flat beveled edge, low contrast gray border, completely empty dark gray center. Minecraft inventory style pixel art. Front-facing rectangle, symmetrical, no words, no symbols, no rivets, no decorations, no scene, no perspective. Fill the canvas with the rectangular button, transparent only at very small corner cutouts.",
+      "image_size": {
+        "width": 64,
+        "height": 32
+      },
+      "outline": "single color black outline",
+      "detail": "low detail",
+      "no_background": true,
+      "seed": 710032,
+      "enhance_prompt": false
+    },
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    }
+  },
+  "THUMB_NORMAL": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this tall narrow vertical slider handle into Minecraft-style stone pixel art. Keep this exact tall silhouette: height is more than twice the width. Keep three small horizontal grip grooves stacked vertically. Light gray stone with a subtle upper-left bevel. No text, no symbols, no keys, no keyboard, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "23c78529cbbb2dc4e98e200c22bdf1244914f7053b4388b96dff1757a949605f",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "f1486ab7083d5187719dbe81bc117d0aa749f48169c89dfef3c4de95047239bb"
+  },
+  "THUMB_HOVER": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this tall narrow vertical slider handle into Minecraft-style stone pixel art. Keep this exact tall silhouette: height is more than twice the width. Keep three small horizontal grip grooves stacked vertically. Subtle grass-green highlighted rim. No text, no symbols, no keys, no keyboard, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "2bc2e9435af11f1bfd163b9abe00c27e7e8c7e2adf70c8cd97809b78c66f1ca5",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "0a5393398c65ae8b4821177f757d2792ed2e6d75da9b2e6bc15877e1de8f6fd2"
+  },
+  "THUMB_DISABLED": {
+    "provider": "PixelLab",
+    "model": "Pixen Edit",
+    "endpoint": "https://api.pixellab.ai/v2/edit-image-pixen",
+    "workflow": "layout-guided refinement",
+    "request": {
+      "description": "Polish this tall narrow vertical slider handle into Minecraft-style stone pixel art. Keep this exact tall silhouette: height is more than twice the width. Keep three small horizontal grip grooves stacked vertically. Dark low-contrast disabled state. No text, no symbols, no keys, no keyboard, no perspective. Transparent background.",
+      "width": 32,
+      "height": 32,
+      "seed": 710400,
+      "no_background": true
+    },
+    "layout_guide_sha256": "ab217a8a39433b4893dd28549e73177a956c0143dae43b6484d691cbf23a6aba",
+    "usage": {
+      "type": "generations",
+      "generations": 1.0
+    },
+    "sha256": "ccecccaf018e05b10b2a92fc2b6f6c305b90f852b8bf7de516f9819aebb56e82"
+  }
+}
